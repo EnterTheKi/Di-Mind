@@ -10,24 +10,28 @@
       var hash = window.location.hash;
 
       // Store the full path in sessionStorage
-      // Use a unique key, e.g., 'ghPagesPath'
+      // The app (index.html -> script.js) reads 'ghPagesPath' back on load,
+      // so deep links like /blog/post-3 survive the redirect.
       sessionStorage.setItem('ghPagesPath', path + query + hash);
 
-      // Redirect to the root (where index.html is)
-      // Adjust '/your-repo-name/' if your site is NOT at the root of the domain
-      // If it's at username.github.io, just '/' is usually correct.
-      // If it's at username.github.io/my-repo/, use '/my-repo/'
-      var repoBasePath = '/'; // CHANGE if your site is in a subfolder like /my-repo/
+      // Redirect to the root of the app.
+      // On GitHub Pages this is a PROJECT site deployed inside /Distracted-WORLD/;
+      // on a domain-root host (e.g. a custom domain) the app lives at '/' instead.
+      var repoBasePath = (path.indexOf('/Distracted-WORLD/') === 0) ? '/Distracted-WORLD/' : '/';
 
+      // Always redirect to the app root. GitHub Pages serves this 404.html AT the deep URL
+      // (e.g. /Distracted-WORLD/blog/post-3), so bouncing back to that same path would loop.
+      // The stored 'ghPagesPath' carries the deep link over to the app instead.
       window.location.replace(repoBasePath);
 
     </script>
   </head>
   <body>
-    <p>If you are not redirected automatically, follow this <a id="redirect-link" href="/">link to the homepage</a>.</p>
+    <p>If you are not redirected automatically, follow this <a id="redirect-link" href="/Distracted-WORLD/">link to the homepage</a>.</p>
     <script>
         // Update link href just in case script runs slowly
-        var repoBasePath = '/'; // CHANGE if your site is in a subfolder like /my-repo/
+        var pathCheck = window.location.pathname;
+        var repoBasePath = (pathCheck.indexOf('/Distracted-WORLD/') === 0) ? '/Distracted-WORLD/' : '/';
         document.getElementById('redirect-link').href = repoBasePath;
     </script>
   </body>

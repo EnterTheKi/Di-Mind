@@ -96,10 +96,33 @@
     ];
 
 
+    // --- GitHub Pages Subfolder Support ---
+    // On project sites (e.g. github.io/Distracted-WORLD/), deep links like /blog/post-3 are served
+    // by 404.html, which stores the real path in sessionStorage and redirects to the app root.
+    const REPO_BASE = '/Distracted-WORLD/';
+    const SITE_BASE = window.location.pathname.startsWith(REPO_BASE) ? REPO_BASE : '/';
+
+    function stripRepoBase(p) {
+        return (typeof p === 'string' && p.startsWith(REPO_BASE)) ? p.slice(REPO_BASE.length) : p;
+    }
+
+    function resolvePathname() {
+        let p = window.location.pathname;
+        try {
+            const stored = sessionStorage.getItem('ghPagesPath');
+            if (stored) {
+                sessionStorage.removeItem('ghPagesPath');
+                // Only trust the stored path when we are at the app root (the 404 redirect target)
+                if (p === REPO_BASE || p === '/' || p === '') p = stored;
+            }
+        } catch (e) { /* sessionStorage unavailable - ignore */ }
+        return stripRepoBase(p);
+    }
+
     // Determine Initial State from URL
     let initialFilter = 'home';
     let initialPostId = null;
-    const path = window.location.pathname;
+    const path = resolvePathname();
     const pathSegments = path.split('/').filter(segment => segment);
 
     if (pathSegments.length > 0) {
@@ -1332,7 +1355,7 @@
 
              if (totalGoals === 0) {
                  diMindMessageEl.textContent = "No goals set, friend! Add some tasks to begin your journey!";
-                 diMindFeedbackImgEl.src = 'assets/images/Di-Mind2.gif'; // Neutral GIF
+                 diMindFeedbackImgEl.src = 'assets/images/Di-Mind2-sm.gif'; // Neutral GIF
                  diMindFeedbackArea.classList.add('neutral');
                  // No sound for neutral state? Or a specific sound?
              } else if (completedCount === totalGoals) {
@@ -1560,18 +1583,21 @@
         }
 
         // 6. Update Browser History (if requested and URL changed)
-        if (updateHistory && targetUrl && window.location.pathname !== targetUrl) {
-            const state = { filter: currentFilter, postId: isBlogPostView ? postId : null, trigger: triggerData };
-            try {
-                window.history.pushState(state, '', targetUrl);
-                console.log("History pushed:", state, targetUrl);
-            } catch (error) {
-                console.error("Error updating history state:", error);
-                // Fallback to replaceState if push fails? Be cautious.
-                 if (window.location.pathname !== targetUrl) {
-                      console.warn("Attempting replaceState as fallback.");
-                      window.history.replaceState(state, '', targetUrl);
-                 }
+        // Prefix with the repo base on GitHub Pages project subfolders so in-app URLs resolve
+        // to the real page instead of the site's 404.html redirect loop.
+        if (updateHistory && targetUrl) {
+            const finalUrl = (SITE_BASE === '/') ? targetUrl : (SITE_BASE + targetUrl.replace(/^\/+/, ''));
+            if (window.location.pathname !== finalUrl) {
+                const state = { filter: currentFilter, postId: isBlogPostView ? postId : null, trigger: triggerData };
+                try {
+                    window.history.pushState(state, '', finalUrl);
+                    console.log("History pushed:", state, finalUrl);
+                } catch (error) {
+                    console.error("Error updating history state:", error);
+                    // Fallback to replaceState if push fails? Be cautious.
+                     console.warn("Attempting replaceState as fallback.");
+                     window.history.replaceState(state, '', finalUrl);
+                }
             }
         }
 
@@ -2161,10 +2187,8 @@
              triggerData = e.state.trigger || null;
              console.log("Popstate: Using state:", e.state);
         } else {
-             // No valid state, re-parse the URL like initial load
-             console.log("Popstate: No valid state, re-parsing URL:", window.location.pathname);
-             const path = window.location.pathname;
-             const seg = path.split('/').filter(s => s);
+             // No valid state, re-parse the URL like initial load            console.log("Popstate: No valid state, re-parsing URL:", window.location.pathname);
+            const seg = resolvePathname().split('/').filter(s => s);
              if (seg.length > 0) {
                  let potential = seg[0];
                  if(potential === 'dw') potential = 'distracted';
