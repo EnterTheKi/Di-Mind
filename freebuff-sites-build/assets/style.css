@@ -1,0 +1,2000 @@
+/* Basic Reset & Box Sizing */
+.gallery-page-container *,
+.gallery-page-container *::before,
+.gallery-page-container *::after {
+    margin: 0; padding: 0; box-sizing: border-box;
+}
+
+/* Define accent variables */
+.gallery-page-container {
+    --header-footer-bg: #2a2725;
+    --header-footer-border: #4a4642;
+    --body-bg: #f7f5f0;
+    --text-color: #3f3a36;
+    --text-color-light: #e8e4d9;
+    --subtle-border-color: #c8c4bc;
+    --hover-border-color: #5c5752;
+    --active-nav-bg: #3a3633;
+    --active-nav-text: #f7f5f0;
+    --input-bg: #e6d8c2;
+    --telegram-border: #8b6f47; /* Used for telegram dashed border & accent */
+    --highlight-bg: #FF0000; /* Search highlight color */
+    --highlight-text: white;
+    --goal-list-bg: url('assets/textures/subtle-paper.png') repeat; /* Subtle paper texture for goal list */
+    --goal-item-bg: #fdfbf5; /* Slightly off-white for goal items */
+}
+
+/* Base styles */
+body, html {
+    overflow-x: hidden;
+}
+body, .gallery-page-container {
+    font-family: 'EB Garamond', serif; line-height: 1.7; background-color: var(--body-bg); color: var(--text-color); font-weight: 400; padding-bottom: 20px; position: relative;
+}
+
+/* --- Custom Cursors --- */
+.gallery-page-container {
+    cursor: url('assets/cursors/glove-default.png') 4 2, default;
+}
+.gallery-page-container a,
+.gallery-page-container button,
+.gallery-page-container .filter-btn,
+.gallery-page-container .read-more-btn,
+.gallery-page-container .page-link,
+.gallery-page-container .goal-button, /* Added */
+.gallery-page-container .di-mind-button, /* Added */
+.gallery-page-container .blog-post-card,
+.gallery-page-container .blog-card-link-wrapper,
+.gallery-page-container .social-icons-container a,
+.gallery-page-container .search-toggle-btn,
+.gallery-page-container .search-result-item,
+.gallery-page-container .back-to-blog-btn,
+.gallery-page-container .blog-image-placeholder img,
+.gallery-page-container .fullscreen-overlay,
+.gallery-page-container .fullscreen-image,
+.gallery-page-container [onclick],
+.gallery-page-container [data-filter],
+.gallery-page-container [data-post-id],
+.gallery-page-container #easter-egg-trigger-image,
+.gallery-page-container .dial-number.enabled,
+.gallery-page-container .safe-button,
+.gallery-page-container .goal-list-vintage li input[type="checkbox"],
+.gallery-page-container .goal-list-vintage li .remove-goal-btn,
+.gallery-page-container #exportGoalsBtn { /* Added export button */
+    cursor: url('assets/cursors/glove-pointer.png') 0 0, pointer;
+}
+.gallery-page-container input[type="search"],
+.gallery-page-container input[type="text"],
+.gallery-page-container textarea {
+    cursor: text;
+}
+/* --- End Custom Cursors --- */
+
+
+/* --- Vintage Effects --- */
+.gallery-page-container::before {
+    content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.25) 100%);
+    opacity: 0.85; pointer-events: none; z-index: 9999;
+}
+.gallery-page-container::after {
+    content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('assets/textures/film-grain.png');
+    background-repeat: repeat; opacity: 0.09; pointer-events: none; z-index: 10000;
+    animation: grain-flicker 0.3s infinite steps(2);
+}
+@keyframes grain-flicker { 
+    0% { transform: translate(0, 0); opacity: 0.09; } 
+    25% { transform: translate(-1px, 1px); opacity: 0.11; } 
+    50% { transform: translate(1px, -1px); opacity: 0.09; } 
+    75% { transform: translate(-1px, 0); opacity: 0.12; } 
+    100% { transform: translate(0, 1px); opacity: 0.09; } 
+}
+/* --- End Vintage Effects --- */
+
+
+/* Header Styling */
+.gallery-page-container header {
+     background-color: var(--header-footer-bg); padding: 25px 0; text-align: center; margin-bottom: 35px;
+     border-bottom: 5px solid var(--header-footer-border); border-top: 5px solid var(--header-footer-border);
+     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.gallery-page-container header h1 {
+     font-family: 'Limelight', cursive; color: #ffffff !important; font-size: 5.2rem; font-weight: normal;
+     text-shadow: 3px 3px 0px var(--header-footer-border), 6px 6px 8px rgba(0, 0, 0, 0.5);
+     margin: 0 !important; padding: 0 !important; letter-spacing: 4px; line-height: 1.1;
+}
+
+
+/* Navigation Bar */
+.gallery-page-container .filter-nav { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 15px; padding: 20px 20px !important; margin-bottom: 35px !important; max-width: 1200px; margin-left: auto !important; margin-right: auto !important; border-bottom: 1px solid var(--subtle-border-color); }
+.gallery-page-container .filter-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.gallery-page-container .filter-nav .filter-btn {
+    padding: 9px 18px;
+    font-size: 0.9rem;
+    font-family: 'Oswald', sans-serif;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    white-space: nowrap;
+    border: 1px solid var(--hover-border-color);
+    background-color: var(--body-bg);
+    color: var(--text-color);
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+}
+
+/* --- Drop Cap Styling (v4 - Clean Implementation) --- */
+
+/* == BASE DROP CAP STYLE == */
+.drop-cap-style::first-letter { /* Removed base style definition as it's duplicated below */
+}
+
+/* == APPLY DROP CAPS == */
+/* Apply to intros of specific sections AND first paragraph in blog posts */
+#home-content > h2.home-intro-header + p:first-of-type::first-letter,
+#distracted-content > h1 + p:first-of-type::first-letter,
+#organized-content > h1 + p:first-of-type::first-letter,
+#goals-content > h1 + p.section-intro:first-of-type::first-letter,
+.preview-section p:first-of-type::first-letter,
+#blog-content > h1 + p::first-letter,
+#telegram-content > h1 + p.telegram-intro::first-letter {
+    font-family: 'EB Garamond', serif;
+    font-size: 4em;
+    font-weight: 700;
+    line-height: 0.85;
+    color: #444;
+    margin-right: 2px;
+    float: left;
+    padding-top: 0.05em;
+    padding-right: 0.1em;
+    margin-bottom: -0.1em;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+    position: relative;
+    display: block;
+}
+
+/* --- Specific Blog Post First Paragraph Drop Cap --- */
+/* Using high specificity and !important to force override */
+/* Target first p after H1 (no image) OR first p in .post-content OR first p after Image */
+.gallery-page-container #full-blog-post-view > h1 + p:first-of-type:not(.post-meta)::first-letter, /* Added :not(.post-meta) */
+.gallery-page-container #full-blog-post-view .post-content p:first-of-type::first-letter,
+.gallery-page-container #full-blog-post-view > h1 + img + p:first-of-type::first-letter,       /* NEW: H1 -> Img -> P */
+.gallery-page-container #full-blog-post-view > .post-meta + img + p:first-of-type::first-letter, /* NEW: Meta -> Img -> P */
+.gallery-page-container #full-blog-post-view > img + p:first-of-type::first-letter,             /* NEW: Img -> P (if img is first child) */
+/* NEW FORCE SELECTORS - These are more aggressive to catch edge cases */
+.gallery-page-container #full-blog-post-view p:not(.post-meta):first-of-type::first-letter,  /* First paragraph that's not meta */
+.gallery-page-container #full-blog-post-view div > p:first-of-type:not(.post-meta)::first-letter, /* First p in any div */
+.gallery-page-container #full-blog-post-view .post-content > *:not(.post-meta) + p::first-letter, /* Any p after non-meta element */
+.gallery-page-container #full-blog-post-view p:nth-of-type(2):not(.post-meta)::first-letter { /* Second p in case first is meta */
+    font-family: 'EB Garamond', serif !important;
+    font-size: 4em !important;
+    font-weight: 700 !important;
+    line-height: 0.85 !important;
+    color: #444 !important;
+    margin-right: 2px !important;
+    float: left !important;
+    padding-top: 0.05em !important;
+    padding-right: 0.1em !important;
+    margin-bottom: -0.1em !important;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.1) !important;
+    position: relative !important;
+    display: block !important;
+    /* Reset potentially conflicting inline styles */
+    background: none !important;
+    border: none !important;
+}
+
+/* == RESET DROP CAPS WHERE NOT WANTED == */
+/* Reset specific properties for elements that should NOT have drop caps */
+/* Reset paragraphs that are NOT the first of their type WITHIN their parent */
+#full-blog-post-view p:not(:first-of-type)::first-letter,
+/* Explicitly reset meta paragraph if it has the class */
+#full-blog-post-view p.post-meta::first-letter,
+/* Reset general meta element first letter if it's not a p */
+#full-blog-post-view .post-meta:not(p)::first-letter,
+#full-blog-post-view .vintage-callout::first-letter,
+#full-blog-post-view .vintage-ps::first-letter,
+#full-blog-post-view li::first-letter,
+#full-blog-post-view th::first-letter,
+#full-blog-post-view td::first-letter,
+.blog-post-card .blog-card-details p::first-letter,
+.telegram-response-area p::first-letter,
+.telegram-focus-card p::first-letter,
+.filter-nav .filter-btn::first-letter,
+.telegram-steps li::first-letter,
+.telegram-checklist li::first-letter,
+footer p::first-letter,
+.goal-list-vintage li .goal-text::first-letter,
+.safe-message::first-letter,
+.prize p::first-letter,
+.centered-text::first-letter,
+.gallery-page-container .preview-section.centered-preview p::first-letter {
+    font-size: inherit;
+    line-height: inherit;
+    float: none;
+    padding: 0;
+    margin: 0;
+    font-family: inherit;
+    font-weight: inherit;
+    color: inherit;
+    text-shadow: none;
+    display: inline;
+    position: static;
+    background: none;
+    border: none;
+}
+
+/* NEW: Important override for any 'all: unset' that might affect our drop caps */
+/* This must come after the reset rules above */
+.gallery-page-container #full-blog-post-view [class*="post"] p:first-of-type:not(.post-meta)::first-letter,
+.gallery-page-container #full-blog-post-view p.first-content-paragraph::first-letter {
+    font-family: 'EB Garamond', serif !important;
+    font-size: 4em !important;
+    font-weight: 700 !important;
+    line-height: 0.85 !important;
+    color: #444 !important;
+    margin-right: 2px !important;
+    float: left !important;
+    padding-top: 0.05em !important;
+    padding-right: 0.1em !important;
+    margin-bottom: -0.1em !important;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.1) !important;
+    position: relative !important;
+    display: block !important;
+    /* Reset potentially conflicting inline styles */
+    background: none !important;
+    border: none !important;
+}
+
+/* --- End Drop Cap Styling --- */
+
+/* REMOVED Conflicting SASS Extend Placeholder Block */
+
+/* REMOVED Conflicting Drop Cap Styling (Simple & Direct) Block */
+
+/* Drop Cap Styling (Simple & Direct) */
+#home-content > h2.home-intro-header + p::first-letter,
+#distracted-content > h1 + p::first-letter,
+#organized-content > h1 + p::first-letter,
+#blog-content > h1 + p::first-letter,
+#goals-content > h1 + p.section-intro::first-letter,
+#telegram-content > h1 + p.telegram-intro::first-letter {
+    font-family: 'EB Garamond', serif;
+    font-size: 4em;
+    font-weight: 700;
+    line-height: 0.85;
+    color: #444;
+    margin-right: 2px;
+    float: left;
+    padding-top: 0.05em;
+    padding-right: 0.1em;
+    margin-bottom: -0.1em;
+}
+
+/* Remove drop caps from specific elements */
+.gallery-page-container .filter-nav .filter-btn::first-letter,
+.gallery-page-container .blog-card-details p::first-letter,
+.gallery-page-container .preview-section p::first-letter,
+.gallery-page-container .telegram-response-area p::first-letter,
+.gallery-page-container .telegram-focus-card p::first-letter,
+.gallery-page-container .preview-section.centered-preview p::first-letter,
+.telegram-steps li::first-letter,
+.telegram-checklist li::first-letter,
+#full-blog-post-view p.post-meta::first-letter,
+.goal-list-vintage li .goal-text::first-letter,
+.safe-message::first-letter,
+.prize p::first-letter,
+.centered-text::first-letter,
+.gallery-page-container .preview-section.centered-preview p::first-letter,
+#full-blog-post-view p:not(:first-of-type)::first-letter,
+#full-blog-post-view .vintage-callout::first-letter,
+#full-blog-post-view .vintage-ps::first-letter,
+#full-blog-post-view li::first-letter,
+#full-blog-post-view th::first-letter,
+#full-blog-post-view td::first-letter,
+.blog-post-card .blog-card-details p::first-letter,
+.telegram-response-area p::first-letter,
+.telegram-focus-card p::first-letter,
+.filter-nav .filter-btn::first-letter,
+.telegram-steps li::first-letter,
+.telegram-checklist li::first-letter,
+footer p::first-letter,
+.goal-list-vintage li .goal-text::first-letter,
+.safe-message::first-letter,
+.prize p::first-letter,
+.centered-text::first-letter,
+.gallery-page-container .preview-section.centered-preview p::first-letter {
+    font-size: inherit;
+    line-height: inherit;
+    float: none;
+    padding: 0;
+    margin: 0;
+    font-family: inherit;
+    font-weight: inherit;
+    color: inherit;
+    text-shadow: none;
+    display: inline;
+    position: static;
+    background: none;
+    border: none;
+}
+
+/* SPECIFICALLY REMOVE DROP CAP FROM "A" AND "L" IN ORGANIZED WORLD INTRO */
+.gallery-page-container .centered-text.ow-ki-intro p:first-child::first-letter,
+.gallery-page-container .centered-text.ow-ki-intro p:nth-child(2)::first-letter {
+    font-size: inherit !important;
+    line-height: inherit !important;
+    float: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-family: inherit !important;
+    font-weight: inherit !important;
+    color: inherit !important;
+    text-shadow: none !important;
+    display: inline !important;
+    position: static !important;
+    background: none !important;
+    border: none !important;
+}
+
+.gallery-page-container .filter-nav .filter-btn:hover:not(.active) {
+     background-color: #e8e4d9; border-color: var(--hover-border-color); color: #111;
+     transform: translateY(-2px); box-shadow: 2px 2px 4px rgba(0,0,0,0.15);
+}
+.gallery-page-container .filter-nav .filter-btn.active {
+    background-color: var(--active-nav-bg); color: var(--active-nav-text) !important; border-color: var(--active-nav-bg);
+    text-shadow: none;
+    transform: none;
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+
+/* Main Content Area */
+.gallery-page-container .main-content-area { max-width: 1200px; margin: 0 auto !important; padding: 0 20px !important; }
+
+/* Fullscreen overlay styles */
+.gallery-page-container .fullscreen-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); display: flex; justify-content: center; align-items: center;
+    z-index: 10001;
+}
+.gallery-page-container .fullscreen-image {
+    max-width: 90%; max-height: 90%; object-fit: contain;
+}
+
+/* Page Content Styles - Enhanced Vintage */
+.gallery-page-container .page-content {
+    max-width: 850px; 
+    margin: 20px auto !important; 
+    padding: 30px 40px !important; 
+    background-color: #fff;
+    border-radius: 2px; 
+    border: 1px solid var(--subtle-border-color);
+    box-shadow: inset 0px 0px 15px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0,0,0,0.1);
+    position: relative;
+    background-image: url('assets/textures/subtle-paper.png'); 
+    background-repeat: repeat;
+    /* Add vintage page edge effect */
+    border-right: 2px solid rgba(0,0,0,0.03);
+    border-bottom: 2px solid rgba(0,0,0,0.05);
+}
+.gallery-page-container .page-content h1,
+.gallery-page-container .page-content h2 {
+     font-family: 'Limelight', cursive; font-weight: normal; text-transform: uppercase; color: #282828 !important;
+     margin-top: 30px !important; margin-bottom: 20px !important; text-align: center; letter-spacing: 1.5px;
+     text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+.gallery-page-container .page-content h1 { font-size: 2.8rem; }
+.gallery-page-container .page-content h2 { font-size: 2rem; }
+.gallery-page-container .page-content p {
+    font-family: inherit; font-weight: 400; font-size: 1.1rem; color: var(--text-color) !important;
+    line-height: 1.85; margin-bottom: 20px !important; text-align: justify; hyphens: auto;
+}
+.gallery-page-container .page-content .section-intro {
+    font-size: 1.15rem; text-align: center; margin-bottom: 35px !important; font-style: italic; color: #555; max-width: 650px; margin-left: auto; margin-right: auto;
+}
+
+
+/* General placeholder image style */
+.gallery-page-container .page-content img.placeholder-image {
+    display: block;
+    width: 80%;
+    max-width: 500px;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+    background-color: transparent;
+    margin: 30px auto 40px auto !important;
+    filter: grayscale(20%) contrast(105%) brightness(102%);
+    transition: transform 0.3s ease, filter 0.4s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: none;
+    border-radius: 4px;
+    padding: 5px;
+}
+.gallery-page-container .page-content a:hover img.placeholder-image,
+.gallery-page-container .page-content img.placeholder-image:hover {
+    transform: scale(1.03) rotate(0.5deg); /* Reduced hover effect */
+    filter: grayscale(0%) brightness(105%);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Specific styles for HOME Main Image */
+.gallery-page-container #home-content img.home-main-image {
+    display: block; width: 100%; max-width: 100%; height: auto; aspect-ratio: unset; object-fit: contain;
+    padding: 10px; background: transparent; border: 5px solid var(--header-footer-border);
+    box-shadow: 0 0 0 5px var(--text-color-light), 0 0 0 10px var(--active-nav-bg), 0 10px 25px rgba(0, 0, 0, 0.4);
+    border-radius: 5px; margin: 30px auto 45px auto !important; filter: none;
+    transition: all 0.4s ease, opacity 0.5s ease, transform 0.5s ease; z-index: 1;
+}
+.gallery-page-container #home-content img.home-main-image:not(.shake-and-fade):hover {
+    transform: perspective(1000px) rotateX(3deg) rotateY(3deg);
+    box-shadow: 0 0 0 5px var(--text-color-light), 0 0 0 10px var(--active-nav-bg), 0 15px 35px rgba(0, 0, 0, 0.5);
+    filter: none;
+}
+
+/* Light-Up Effect */
+@keyframes lightUp { 0% { filter: brightness(100%) drop-shadow(0 0 0 rgba(255, 215, 0, 0)); } 50% { filter: brightness(130%) drop-shadow(0 0 15px rgba(255, 215, 0, 0.8)); } 100% { filter: brightness(100%) drop-shadow(0 0 0 rgba(255, 215, 0, 0)); } }
+#easter-egg-trigger-image.light-up { animation: lightUp 0.5s ease-in-out; }
+
+.gallery-page-container .centered-text { text-align: center; font-family: 'EB Garamond', serif; font-size: 1.3rem; margin: 40px 0 !important; line-height: 1.9; font-weight: 400; color: var(--text-color) !important; }
+.gallery-page-container .centered-text strong { font-weight: 700; color: #000 !important; }
+.gallery-page-container .page-link { display: block; width: fit-content; margin: 40px auto !important; padding: 12px 30px !important; background-color: #444; color: var(--text-color-light) !important; text-decoration: none !important; font-family: 'Oswald', sans-serif; font-weight: 700; text-transform: uppercase; border-radius: 3px; transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease; letter-spacing: 1px; box-shadow: 1px 1px 3px rgba(0,0,0,0.2); border: 1px solid #444; }
+.gallery-page-container .page-link:hover:not([disabled]) { background-color: #111; transform: scale(1.05); border-color: var(--hover-border-color); }
+.gallery-page-container .centered-button { display: block; margin-left: auto; margin-right: auto; text-align: center; }
+.gallery-page-container .home-section-separator { border-top: none; border-bottom: 2px dashed var(--subtle-border-color); opacity: 0.7; margin: 60px auto !important; width: 50%; } /* Dashed line */
+
+/* Styles for HOME View */
+.gallery-page-container #home-content { max-width: 950px; padding-top: 10px !important; }
+.gallery-page-container .home-intro-header { font-family: 'Limelight', cursive; font-size: 2.0rem; text-align: center; margin-bottom: 15px !important; color: #444 !important; font-weight:normal; letter-spacing: 1px; }
+.gallery-page-container .preview-section { background-color: var(--goal-item-bg); padding: 25px 30px !important; margin-bottom: 30px !important; border-radius: 3px; border: 1px solid var(--subtle-border-color); box-shadow: 0 4px 10px rgba(0,0,0,0.08); } /* Slightly different bg */
+.gallery-page-container .preview-section h3 { font-family: 'Limelight', cursive; font-size: 1.8rem; font-weight: normal; color: var(--text-color) !important; margin-bottom: 15px !important; text-align: left; text-transform: uppercase; letter-spacing: 1px; }
+.gallery-page-container .preview-section p { font-family: 'EB Garamond', serif; font-size: 1.05rem; color: #444 !important; line-height: 1.7; margin-bottom: 20px !important; text-align: justify; }
+/* Centered Preview Section Style */
+.gallery-page-container .preview-section.centered-preview { text-align: center; }
+.gallery-page-container .preview-section.centered-preview h3 { display: none; } /* Hide h3 for centered style */
+.gallery-page-container .preview-section.centered-preview p { text-align: center; margin-bottom: 15px !important; font-size: 1.2rem; font-style: normal; color: var(--text-color); }
+.gallery-page-container .preview-section.centered-preview button.read-more-btn { display: inline-block; margin: 0 auto; }
+
+.gallery-page-container .read-more-btn { display: inline-block; padding: 8px 20px !important; background-color: #555; color: var(--text-color-light) !important; text-decoration: none !important; font-family: 'Oswald', sans-serif; font-weight: 400; text-transform: uppercase; border-radius: 3px; transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease; letter-spacing: 0.5px; font-size: 0.9rem; cursor: pointer; border: 1px solid #555; appearance: button; -webkit-appearance: button; -moz-appearance: button; }
+.gallery-page-container .read-more-btn:hover:not([disabled]) { background-color: #333; border-color: #333; }
+
+/* Styles for BLOG List View */
+.gallery-page-container #blog-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center H1 and grid */
+}
+.gallery-page-container #blog-content h1 { /* Center the main H1 */
+    text-align: center !important;
+    width: 100%;
+    margin: 0 auto 10px auto !important; /* Reduced bottom margin */
+}
+.gallery-page-container #blog-content > h1 + p { /* Left-align the subtitle */
+    text-align: left !important;
+    width: 100%; /* Ensure it takes full width for alignment */
+    max-width: 850px; /* Match page-content width */
+    margin: 0 auto 30px auto !important; /* Center the paragraph block itself */
+    padding: 0 40px !important; /* Match page-content padding */
+    color: #555 !important; /* Match original style */
+    font-size: 1.2rem !important; /* Match original style */
+}
+.gallery-page-container .blog-grid {
+    display: none;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 35px;
+    padding-bottom: 20px !important;
+    width: 100%;
+    max-width: 1200px; /* Ensure grid doesn't exceed max width */
+}
+.gallery-page-container .blog-post-card {
+    background-color: var(--goal-item-bg); /* Use consistent off-white */
+    border-radius: 3px;
+    overflow: hidden;
+    transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--subtle-border-color);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08); /* Subtle shadow */
+    width: 100%;
+}
+.gallery-page-container .blog-card-link-wrapper { text-decoration: none !important; color: inherit; display: flex; flex-direction: column; height: 100%; }
+.gallery-page-container .blog-post-card:hover { transform: translateY(-8px) rotate(0.5deg); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12); border-color: var(--hover-border-color); }
+.gallery-page-container .blog-image-placeholder {
+    height: 180px;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #999;
+    font-style: italic;
+    font-family: 'EB Garamond', serif;
+    border-bottom: 1px solid var(--subtle-border-color);
+    overflow: hidden;
+    box-shadow: none;
+    padding: 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+.gallery-page-container .blog-image-placeholder img { 
+    display: block; 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    filter: grayscale(80%) contrast(110%) brightness(100%); 
+    transition: transform 0.3s ease, filter 0.4s ease;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+.gallery-page-container .blog-post-card:hover .blog-image-placeholder img { transform: scale(1.05) rotate(1deg); filter: grayscale(0%) brightness(105%); }
+.gallery-page-container .blog-image-placeholder span { font-size: 1.1rem; position: absolute; left:-9999px; }
+.gallery-page-container .blog-card-details {
+    padding: 20px !important;
+    flex-grow: 1;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; /* Center content */
+    text-align: center !important; /* Center text */
+    width: 100%;
+}
+.gallery-page-container .blog-card-details h3 {
+    font-family: 'Oswald', sans-serif !important;
+    font-size: 1.4rem !important;
+    font-weight: 700 !important;
+    color: #282828 !important;
+    text-transform: uppercase !important;
+    line-height: 1.3 !important;
+    text-align: center !important;
+    margin: 0 auto 12px auto !important;
+    width: 100% !important; /* Ensure it takes width */
+    padding: 0 !important;
+    display: block !important;
+    /* Remove positioning overrides */
+    position: static !important;
+    left: auto !important;
+    transform: none !important;
+}
+.gallery-page-container .blog-card-details p { font-family: 'EB Garamond', serif; font-size: 1rem; color: #444 !important; line-height: 1.6; margin-bottom: 0 !important; text-align: left; } /* Keep summary text left-aligned */
+
+
+/* Styles for Full Blog Post View */
+.gallery-page-container #full-blog-post-view {
+    padding-bottom: 40px !important; /* Extra padding at bottom */
+}
+.gallery-page-container #full-blog-post-view h1 {
+    margin-top: 10px !important;
+    font-size: 2.5rem;
+    letter-spacing: 1.5px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+.gallery-page-container .post-meta { font-family: 'EB Garamond', serif; font-style: italic; text-align: center; color: #777 !important; font-size: 0.95rem; margin-bottom: 30px !important; }
+.gallery-page-container .back-to-blog-btn { display: inline-block; margin-bottom: 25px !important; font-family: 'Oswald', sans-serif; font-size: 0.9rem; color: #555 !important; text-decoration: none !important; border: none; background: none; cursor: pointer; padding: 5px 0 !important; transition: color 0.3s ease, transform 0.2s ease; }
+.gallery-page-container .back-to-blog-btn:hover { color: #000 !important; transform: translateX(-3px); }
+.gallery-page-container #full-blog-post-view table { width: 100%; max-width: 600px; margin: 30px auto; border-collapse: collapse; border: 1px solid var(--subtle-border-color); background-color: var(--goal-item-bg); } /* Table bg */
+.gallery-page-container #full-blog-post-view th,
+.gallery-page-container #full-blog-post-view td { border: 1px solid var(--subtle-border-color); padding: 10px 12px; text-align: left; font-size: 0.95rem; }
+.gallery-page-container #full-blog-post-view th { background-color: #e8e4d9; font-family: 'Oswald', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+.gallery-page-container #full-blog-post-view ul,
+.gallery-page-container #full-blog-post-view ol { margin-left: 25px; margin-bottom: 20px; padding-left: 15px; }
+.gallery-page-container #full-blog-post-view li { margin-bottom: 10px; font-size: 1.05rem; line-height: 1.7; }
+.gallery-page-container #full-blog-post-view .vintage-callout { border: 1px dashed var(--telegram-border); border-left: 4px solid var(--telegram-border); padding: 15px 20px; margin: 25px 0; background-color: var(--input-bg); font-style: italic; font-size: 1.05rem; border-radius: 2px; } /* Dashed border */
+.gallery-page-container #full-blog-post-view .vintage-ps { font-style: italic; font-size: 0.95rem; color: #555; margin-top: 30px; }
+
+
+/* === Search Widget Styles === */
+.search-widget-container { position: fixed !important; top: 20px; right: 20px; z-index: 1001; display: flex; align-items: center; }
+.search-toggle-btn { background-color: #fff; color: #333; border: 1px solid #aaa; border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease; font-size: 1.2rem; order: 2; z-index: 999; padding: 0; margin: 0; }
+.search-toggle-btn:hover { background-color: #eee; color: #000; transform: scale(1.15) rotate(-5deg); transition: transform 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55), background-color 0.2s ease, color 0.2s ease; }
+.search-input-wrapper { position: relative; order: 1; margin-right: 10px; }
+#pageSearchInput { width: 0; opacity: 0; padding: 0; border: none; height: 45px; vertical-align: middle; border-radius: 22px; font-family: 'Oswald', sans-serif; font-size: 1rem; outline: none; background-color: #fff; color: #333; box-shadow: 0 2px 5px rgba(0,0,0,0.1); pointer-events: none; transform: scaleX(0.1); transform-origin: right center; transition: width 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.2s 0.1s ease-out, padding 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), border-color 0.3s ease, box-shadow 0.3s ease; box-sizing: border-box; }
+#pageSearchInput::placeholder { color: #aaa; font-style: italic; opacity: 1; }
+.search-widget-container.expanded #pageSearchInput { width: 250px; opacity: 1; padding: 0 15px; border: 1px solid #aaa; pointer-events: auto; transform: scaleX(1); box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+.search-results { position: absolute; top: calc(100% + 5px); left: 0; right: 0; background-color: #fff; border: 1px solid #ccc; border-radius: 3px; box-shadow: 0 4px 8px rgba(0,0,0,0.15); max-height: 300px; overflow-y: auto; display: none; z-index: 998; padding: 0; margin: 0; list-style: none; }
+.search-results.visible { display: block; animation: resultsAppear 0.3s ease forwards; }
+@keyframes resultsAppear { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+.search-result-section { padding: 8px 15px; background-color: #f0f0f0; font-family: 'Oswald', sans-serif; font-weight: bold; color: #333; border-bottom: 1px solid #ddd; font-size: 0.9rem; text-transform: uppercase; }
+.search-result-item { padding: 10px 15px; border-bottom: 1px solid #eee; font-size: 0.95rem; cursor: pointer; transition: background-color 0.2s ease; display: block; color: #444; }
+.search-result-item:last-child { border-bottom: none; }
+.search-result-item:hover { background-color: #e8e8e0; }
+.search-result-item strong { font-weight: 700; color: #000; background-color: rgba(150, 150, 150, 0.2); padding: 0 2px; border-radius: 1px; }
+.search-result-item em { font-style: italic; color: #555; font-size: 0.9em; display: block; margin-bottom: 3px; }
+/* === End Search Widget Styles === */
+
+
+/* === START: Styles for Manual Goals Section (Vintage Ledger Vibe) === */
+#goals-content { } /* Base styles + paper texture */
+
+#goals-content h1 { font-family: 'Limelight', cursive !important; font-size: 2.5rem !important; margin-bottom: 20px !important; color: #222 !important; }
+#goals-content > img.goal-section-image {
+    width: 60%; 
+    max-width: 350px; 
+    height: auto;
+    margin: 0 auto 25px auto;
+    display: block;
+    border: 3px solid #555; 
+    padding: 5px; 
+    background-color: var(--body-bg); 
+    border-radius: 2px; 
+    box-shadow: 0 0 0 3px #aaa, 0 5px 10px rgba(0,0,0,0.2); 
+    filter: grayscale(60%) sepia(30%) contrast(110%); /* Enhanced vintage filter */
+    transform: rotate(-1deg); /* Slightly askew for vintage feel */
+}
+#goals-content > p.section-intro { font-size: 1.1rem !important; margin-bottom: 20px !important; text-align: center !important; font-style: normal !important; color: var(--text-color) !important; }
+
+.goal-input-area { display: flex; gap: 10px; margin: 30px 0 10px 0; justify-content: center; max-width: 550px; margin-left: auto; margin-right: auto; }
+#newGoalInput { flex: 1; padding: 10px; font-family: 'Courier Prime', monospace; /* Monospaced font */ font-size: 1rem; border: 1px solid #aaa; /* Darker border */ border-radius: 2px; background-color: #fff; box-shadow: inset 1px 1px 2px rgba(0,0,0,0.15); /* Stronger inset shadow */ }
+#newGoalInput:disabled { background-color: #eee; cursor: not-allowed; }
+#newGoalInput::placeholder { color: #888; font-style: italic; }
+
+#addGoalBtn.goal-button { padding: 10px 20px !important; background-color: #555 !important; color: var(--text-color-light) !important; border: 1px solid #333 !important; /* Darker border */ border-radius: 2px !important; /* Sharper corners */ font-family: 'Oswald', sans-serif !important; font-weight: 700 !important; text-transform: uppercase !important; cursor: url('assets/cursors/glove-pointer.png') 0 0, pointer !important; transition: background-color 0.3s ease, transform 0.2s ease !important; flex-shrink: 0; line-height: normal; appearance: button; -webkit-appearance: button; -moz-appearance: button; box-shadow: 1px 1px 3px rgba(0,0,0,0.2); }
+#addGoalBtn.goal-button:hover:not(:disabled) { background-color: #333 !important; transform: scale(1.05) !important; }
+#addGoalBtn.goal-button:disabled { background-color: #aaa !important; border-color: #aaa !important; cursor: not-allowed; transform: none !important; opacity: 0.7; }
+
+.error-message { color: #cc0000; font-family: 'Oswald', sans-serif; font-size: 0.9rem; margin-top: 5px; text-align: center; }
+.error-message.hidden { display: none; }
+
+#goals-content h2 { font-size: 1.8rem !important; margin-top: 30px !important; margin-bottom: 15px !important; text-align: center !important; border-bottom: 2px solid var(--header-footer-border) !important; /* Solid darker line */ padding-bottom: 10px !important; color: #222 !important; font-family: 'Oswald', sans-serif; /* Oswald for heading */ text-transform: uppercase; letter-spacing: 1px; }
+
+/* IMPROVED GOAL LIST WITH BETTER ALIGNMENT AND VINTAGE STYLING */
+.goal-list-vintage { 
+    list-style: none; 
+    padding: 18px 15px; /* Increased padding */
+    max-width: 550px; 
+    margin: 20px auto 30px auto; 
+    background: var(--goal-list-bg); 
+    border: 1px solid #a79d8c; /* Warmer border color */
+    border-radius: 3px; 
+    box-shadow: inset 0 0 12px rgba(0,0,0,0.12), 0 2px 5px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+/* Add vintage paper corner fold effect */
+.goal-list-vintage::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    width: 25px;
+    height: 25px;
+    background: linear-gradient(135deg, transparent 50%, rgba(210, 200, 185, 0.5) 50%);
+    border-radius: 0 3px 0 0;
+    box-shadow: -2px 2px 5px rgba(0,0,0,0.1);
+    z-index: 1;
+}
+
+.goal-list-vintage li { 
+    display: flex; 
+    align-items: flex-start;
+    padding: 12px 10px;
+    background-color: #fcf9f2; /* Warmer background color */
+    border-bottom: 1px dashed #beb5a5; /* Warmer dashed separator */
+    margin-bottom: 0; 
+    transition: background-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease; 
+    gap: 10px;
+    position: relative; /* For vintage markers */
+}
+
+.goal-list-vintage li:hover {
+    background-color: #f9f4e8; /* Subtle hover effect */
+}
+
+.goal-list-vintage li:last-child { border-bottom: none; }
+
+.goal-list-vintage li input[type="checkbox"] { 
+    margin-right: 10px; 
+    width: 18px;
+    height: 18px; 
+    flex-shrink: 0; 
+    accent-color: var(--active-nav-bg); 
+    cursor: url('assets/cursors/glove-pointer.png') 0 0, pointer; 
+    appearance: none; 
+    -webkit-appearance: none; 
+    background-color: #f5f1e6; /* Warmer background */
+    border: 1px solid #8a7e6d; /* Darker vintage border */
+    border-radius: 2px; 
+    position: relative; 
+    top: 3px;
+    box-shadow: inset 0 0 3px rgba(0,0,0,0.1); /* Inset shadow for depth */
+}
+
+.goal-list-vintage li input[type="checkbox"]:checked { 
+    background-color: #5c5245; /* More vintage dark brown */
+    border-color: #443d35; 
+}
+
+.goal-list-vintage li .goal-text { 
+    flex-grow: 1; 
+    font-family: 'Courier Prime', monospace;
+    font-size: 1.05rem;
+    color: #3a3530; /* Warmer text color */
+    text-align: left; 
+    word-break: break-word; 
+    transition: text-decoration 0.3s ease, color 0.3s ease; 
+    line-height: 1.5;
+    padding-top: 2px;
+}
+
+/* ENHANCED Di-Mind Feedback Area Styles */
+.di-mind-feedback {
+    margin: 25px auto;
+    padding: 28px 32px; /* Increased padding */
+    border-radius: 3px;
+    background-color: #f9f4e8; /* Warmer background */
+    border: 2px solid #beb5a5; /* Warmer border */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12), inset 0 0 8px rgba(0,0,0,0.05);
+    max-width: 650px;
+    text-align: center;
+    position: relative; /* For decorative elements */
+    overflow: hidden; /* Keep decorations contained */
+}
+
+/* Add decorative corner flourishes */
+.di-mind-feedback::before,
+.di-mind-feedback::after {
+    content: "✧"; /* Star character */
+    position: absolute;
+    font-size: 1.8rem;
+    color: rgba(142, 126, 102, 0.2);
+    z-index: 0;
+}
+
+.di-mind-feedback::before {
+    top: 5px;
+    left: 8px;
+}
+
+.di-mind-feedback::after {
+    bottom: 5px;
+    right: 8px;
+}
+
+.di-mind-feedback.success { 
+    border-color: #4CAF50; 
+    background-color: #eef6ef; 
+    border-left: 6px solid #4CAF50;
+}
+.di-mind-feedback.failure { 
+    border-color: #F44336; 
+    background-color: #fbedec; 
+    border-left: 6px solid #F44336;
+}
+.di-mind-feedback.neutral { 
+    border-color: #9E9E9E; 
+    background-color: #f5f5f5; 
+    border-left: 6px solid #9E9E9E;
+}
+
+/* === START: ENHANCED Traveler's Telegram Section === */
+#telegram-content .telegram-intro { 
+    font-size: 1.15rem; 
+    text-align: center; 
+    margin-bottom: 35px !important; 
+    font-style: italic; 
+    color: #555; 
+    max-width: 650px; 
+    margin-left: auto; 
+    margin-right: auto;
+    /* Add decorative horizontal line with vintage ornament */
+    padding-bottom: 20px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="20" viewBox="0 0 200 20"><line x1="0" y1="10" x2="200" y2="10" stroke="%23ccc" stroke-width="1" stroke-dasharray="1 3"/></svg>');
+    background-position: bottom center;
+    background-repeat: no-repeat;
+}
+
+.telegram-input-area { 
+    display: flex; 
+    gap: 10px; 
+    margin-bottom: 40px; 
+    max-width: 600px; 
+    margin-left: auto; 
+    margin-right: auto;
+    position: relative; /* For stamp effect */
+}
+
+/* Add a subtle stamp effect to the input area */
+.telegram-input-area::after {
+    content: "";
+    position: absolute;
+    right: -20px;
+    top: -15px;
+    width: 60px;
+    height: 60px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="30" r="28" fill="none" stroke="%23aa8866" stroke-width="1" stroke-dasharray="3 2" opacity="0.5"/></svg>');
+    background-repeat: no-repeat;
+    transform: rotate(15deg);
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+#focusInput { 
+    flex-grow: 1; 
+    padding: 12px 15px;
+    font-family: 'Courier Prime', monospace; 
+    font-size: 1.05rem; 
+    border: 1px solid #a79d8c; /* Warmer border color */
+    border-radius: 2px; 
+    background-color: #fcf9f2; /* Warmer background */ 
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.1); 
+    outline-color: var(--hover-border-color);
+    color: #3a3530; /* Warmer text color */
+}
+
+#getAdviceBtn { 
+    padding: 10px 20px !important; 
+    white-space: nowrap; 
+    flex-shrink: 0; 
+    font-family: 'Oswald', sans-serif; 
+    border-radius: 2px; 
+    font-weight: 700;
+    background-color: #5c5245 !important; /* More vintage dark brown */
+    border-color: #443d35 !important;
+    color: #f5f1e6 !important; /* Off-white text */
+    position: relative;
+    overflow: hidden;
+}
+
+#getAdviceBtn:hover {
+    background-color: #443d35 !important;
+}
+
+/* FIXED TELEGRAM RESPONSE AREA - Ensure visibility */
+.telegram-response-area { 
+    background-color: #e6d8c2; /* More vintage color */
+    border: 2px solid #3c2f2f; 
+    padding: 30px 35px !important;
+    max-width: 650px;
+    margin: 20px auto 30px auto; 
+    border-radius: 3px; 
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.15), inset 0 0 8px rgba(0,0,0,0.05); 
+    position: relative; 
+    color: #3c2f2f;
+}
+
+/* Remove the override that was forcing visibility */
+.telegram-response-area.hidden {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+}
+
+/* Add vintage telegram decoration */
+.telegram-response-area::before { 
+    content: 'Message from The Traveler'; 
+    display: block; 
+    font-family: 'Bebas Neue', sans-serif; 
+    font-size: 1.4rem;
+    color: #8b6f47; /* Match telegram border var */
+    margin-bottom: 20px;
+    border-bottom: 1px dashed #3c2f2f; 
+    padding-bottom: 10px; 
+    text-align: center;
+    position: relative;
+}
+
+/* Add vintage telegram arrow marks */
+.telegram-response-area::after {
+    content: "";
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><path d="M5,5 L35,35 M5,35 L35,5" stroke="%238b6f47" stroke-width="1" opacity="0.3"/></svg>');
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+/* IMPROVED STATIC FOCUS CARD */
+.telegram-focus-card { 
+    background-color: #fcf9f2; /* Warmer background */ 
+    border: 1px solid #a79d8c; /* Warmer border */
+    padding: 30px 35px !important;
+    max-width: 650px;
+    margin: 30px auto 40px auto;
+    border-radius: 3px; 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15), inset 0 0 8px rgba(0,0,0,0.05);
+    color: #3a3530; /* Warmer text color */
+    position: relative; /* For decorative elements */
+}
+
+/* Add decorative corner flourishes */
+.telegram-focus-card::before,
+.telegram-focus-card::after {
+    content: "✦"; /* Different star character */
+    position: absolute;
+    font-size: 1.5rem;
+    color: rgba(139, 111, 71, 0.2); /* Match telegram border var */
+    z-index: 0;
+}
+
+.telegram-focus-card::before {
+    top: 8px;
+    left: 10px;
+}
+
+.telegram-focus-card::after {
+    bottom: 8px;
+    right: 10px;
+}
+
+/* JS FIX: Helper class to force show elements when JS fails */
+.force-show {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+}
+
+/* === END: Styles for Manual Goals Section === */
+
+/* === START: Styles for REVISED Traveler's Telegram Section === */
+#telegram-content { } /* Base styles */
+
+#telegram-content h1 { margin-bottom: 15px !important; }
+#telegram-content .telegram-intro { 
+    font-size: 1.15rem; 
+    text-align: center; 
+    margin-bottom: 35px !important; 
+    font-style: italic; 
+    color: #555; 
+    max-width: 650px; 
+    margin-left: auto; 
+    margin-right: auto; 
+}
+
+.telegram-input-area { 
+    display: flex; 
+    gap: 10px; 
+    margin-bottom: 40px; 
+    max-width: 600px; 
+    margin-left: auto; 
+    margin-right: auto; 
+}
+#focusInput { 
+    flex-grow: 1; 
+    padding: 12px 15px; /* Slightly larger padding */
+    font-family: 'Courier Prime', monospace; 
+    font-size: 1.05rem; 
+    border: 1px solid #aaa; 
+    border-radius: 2px; 
+    background-color: #fdfcf7; 
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.1); 
+    outline-color: var(--hover-border-color); 
+}
+#focusInput::placeholder { color: #888; font-style: normal; }
+#focusInput:disabled { background-color: #eee; cursor: not-allowed; }
+#getAdviceBtn { 
+    padding: 10px 20px !important; 
+    white-space: nowrap; 
+    flex-shrink: 0; 
+    font-family: 'Oswald', sans-serif; 
+    border-radius: 2px; 
+    font-weight: 700; /* Bold button text */
+}
+
+/* IMPROVED TELEGRAM RESPONSE AREA */
+.telegram-response-area { 
+    background-color: var(--input-bg); 
+    border: 2px solid #3c2f2f; 
+    padding: 30px 35px !important; /* Increased padding */ 
+    max-width: 650px; /* Slightly wider */ 
+    margin: 0 auto 30px auto; 
+    border-radius: 3px; 
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); 
+    position: relative; 
+    color: #3c2f2f; 
+}
+.telegram-response-area.hidden { display: none !important; }
+.telegram-response-area:not(.hidden) { animation: slideIn 0.5s ease-out forwards; }
+.telegram-response-area::before { 
+    content: 'Message from The Traveler'; 
+    display: block; 
+    font-family: 'Bebas Neue', sans-serif; 
+    font-size: 1.3rem; /* Larger header */
+    color: var(--telegram-border); 
+    margin-bottom: 20px; /* More space below header */
+    border-bottom: 1px dashed #3c2f2f; 
+    padding-bottom: 8px; 
+    text-align: center; /* Center the header */
+}
+.telegram-response-area h3.response-header { 
+    font-family: 'Bebas Neue', sans-serif !important; 
+    font-size: 1.6rem !important; /* Larger section headers */
+    margin-top: 25px !important; 
+    margin-bottom: 15px !important; 
+    color: #3c2f2f !important; 
+    text-align: left !important; 
+    text-transform: none !important; 
+    font-weight: normal !important; 
+    letter-spacing: 0.5px !important; /* Added letter spacing */
+    text-shadow: none !important; 
+    padding-bottom: 0 !important; 
+    border-bottom: none !important; 
+}
+.telegram-response-area h3.response-header:first-of-type { margin-top: 0 !important; }
+.telegram-response-area p.telegram-feedback { 
+    font-family: 'Courier Prime', monospace !important; 
+    font-size: 1.05rem !important; /* Slightly larger text */
+    line-height: 1.7 !important; /* Improved line height */
+    margin-bottom: 20px !important; /* More space between paragraphs */
+    color: #3c2f2f !important; 
+    text-align: left !important; 
+    hyphens: none !important; 
+    opacity: 0; /* JS animates */
+}
+.telegram-response-area ul.telegram-checklist { 
+    list-style: none; 
+    padding-left: 0; 
+    margin-top: 10px; 
+    margin-bottom: 25px !important; /* More space after lists */
+    opacity: 1; 
+}
+.telegram-response-area ul.telegram-checklist li { 
+    position: relative; 
+    padding-left: 28px; /* Increased padding for better icon alignment */
+    margin-bottom: 12px !important; /* More space between items */
+    opacity: 0; /* JS animates list items */
+    font-family: 'Courier Prime', monospace !important;
+    font-size: 1.05rem !important; /* Match paragraph size */
+    line-height: 1.5 !important; /* Improved readability */
+}
+.telegram-response-area ul.telegram-checklist li::before { 
+    content: '➤'; /* Changed to arrow for better visibility */
+    position: absolute; 
+    left: 0; 
+    top: 0; 
+    color: var(--telegram-border); 
+    font-size: 1.1em; 
+    font-weight: bold; 
+    line-height: inherit; 
+}
+.telegram-response-area p.telegram-next-question { 
+    font-weight: bold; 
+    margin-top: 25px; /* More space before question */
+    font-style: italic; /* Italicize for emphasis */
+}
+
+hr.telegram-divider { 
+    border: none; 
+    border-top: 1px dashed var(--subtle-border-color); 
+    margin: 35px auto; /* Increased margin */
+    max-width: 300px; 
+}
+
+/* IMPROVED STATIC FOCUS CARD */
+.telegram-focus-card { 
+    background-color: var(--goal-item-bg); 
+    border: 1px solid var(--subtle-border-color); 
+    padding: 30px 35px !important; /* Increased padding */
+    max-width: 650px; /* Slightly wider */
+    margin: 30px auto 40px auto; /* Increased margins */
+    border-radius: 3px; 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+    color: #333; 
+}
+.telegram-focus-card h2 { 
+    font-family: 'Limelight', cursive !important; 
+    font-size: 1.9rem !important; /* Larger title */
+    font-weight: normal !important; 
+    text-align: center !important; 
+    color: var(--text-color) !important; 
+    margin-bottom: 25px !important; /* More space below title */
+    margin-top: 0 !important; 
+    padding-bottom: 12px; /* More padding */
+    border-bottom: 1px solid var(--subtle-border-color); 
+    text-transform: uppercase !important; 
+    letter-spacing: 1px !important; 
+    text-shadow: none !important; 
+}
+.telegram-focus-card p { 
+    font-family: 'EB Garamond', serif !important; 
+    font-size: 1.1rem !important; /* Larger text */
+    line-height: 1.8 !important; /* Improved line height */
+    margin-bottom: 20px !important; /* More space between paragraphs */
+    color: #333 !important; 
+    text-align: left !important; 
+    hyphens: auto !important; 
+}
+/* Target UL or OL for steps - IMPROVED ALIGNMENT */
+.telegram-focus-card ul.telegram-steps,
+.telegram-focus-card ol.telegram-steps { 
+    list-style: none; 
+    padding-left: 5px; /* Reduced padding */
+    margin-top: 25px; /* More space before list */
+    margin-bottom: 25px; /* More space after list */
+}
+.telegram-focus-card .telegram-steps li { 
+    margin-bottom: 16px; /* More space between items */
+    padding-left: 32px; /* More space for icon */
+    position: relative; 
+    font-size: 1.1rem; /* Larger text */
+    line-height: 1.7; /* Improved line height */
+}
+/* Use star for list items - IMPROVED ALIGNMENT */
+.telegram-focus-card .telegram-steps li::before { 
+    content: '★'; 
+    position: absolute; 
+    left: 0; 
+    top: 0; /* Adjusted position */
+    color: var(--telegram-border); 
+    font-weight: bold; 
+    font-size: 1.2em; /* Larger star */
+    line-height: 1.4; /* Adjusted line height */
+}
+.telegram-focus-card .telegram-steps li strong { 
+    font-weight: bold; 
+    color: #111; 
+}
+.telegram-focus-card p.telegram-footer { 
+    margin-top: 25px; /* More space before footer */
+    font-style: italic; 
+    text-align: center !important; 
+    color: #555 !important; 
+    font-size: 1.05rem !important; /* Slightly larger footer text */
+}
+/* === END: Styles for REVISED Telegram Section === */
+
+
+/* Highlight Styles */
+.search-highlight { background-color: var(--highlight-bg); color: var(--highlight-text); font-weight: bold; padding: 0 1px; border-radius: 2px; display: inline; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.search-highlight-current { background-color: #FF9800; color: #000; font-weight: bold; padding: 0 2px; border-radius: 2px; display: inline; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+
+
+/* Fade-In Animation for Content Sections */
+.gallery-page-container .page-content:not(.hidden) { animation: fadeIn 0.6s ease-out forwards; }
+
+
+/* Social Media Icons */
+.gallery-page-container .social-icons-container { text-align: center; padding: 25px 0 !important; margin: 30px auto 20px auto !important; max-width: 1100px; border-top: 1px solid var(--subtle-border-color); }
+.gallery-page-container .social-icons-container a { display: inline-flex; align-items: center; justify-content: center; text-decoration: none !important; color: var(--text-color-light) !important; background-color: #000 !important; width: 55px; height: 55px; border-radius: 50%; margin: 0 12px !important; transition: color 0.3s ease, background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+.gallery-page-container .social-icons-container a i { font-size: 1.8rem; line-height: 1; transition: color 0.3s ease; }
+.gallery-page-container .social-icons-container a:hover { transform: translateY(-4px) scale(1.1); background-color: #fff !important; color: #000 !important; box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+.gallery-page-container .social-icons-container a:hover i { color: #000 !important; }
+
+
+/* Footer Styling */
+.gallery-page-container footer {
+     margin-top: 40px !important;
+     padding: 20px 0 !important;
+     background-color: var(--header-footer-bg); /* Make sure this is present */
+     color: var(--text-color-light) !important; /* This sets the text color for p and inherited by the link */
+     text-align: center; /* Make sure this centers the content */
+     border-top: 5px solid var(--header-footer-border);
+     box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+}
+
+/* Styling for the clickable copyright SYMBOL (the link) */
+.gallery-page-container footer p a.copyright-symbol-link {
+    color: inherit; /* Inherit the light text color from the parent <p> */
+    text-decoration: none; /* Remove default underline */
+    /* Try text-bottom first for alignment, adjust if needed */
+    vertical-align: text-bottom; /* <<< Check this for alignment! */
+    opacity: 0.9; /* Make the © slightly subtle by default */
+    transition: opacity 0.2s ease, transform 0.2s ease; /* Smooth transition for subtlety and hover effect */
+    display: inline-block; /* Needed for transform and pointer cursor */
+    /* Optional: Add a little padding around the clickable area */
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+/* Styling for the copyright SYMBOL on HOVER */
+.gallery-page-container footer p a.copyright-symbol-link:hover {
+    opacity: 1; /* Make the © fully bright on hover */
+    transform: scale(1.1); /* Subtle hover effect on the symbol itself */
+    /* Optional: Add a subtle background or border on hover */
+    /* background-color: rgba(255, 255, 255, 0.1); */
+    /* border: 1px solid rgba(255, 255, 255, 0.2); */
+}
+
+ /* Ensure the cursor is a pointer over the copyright link only */
+ .gallery-page-container footer p a.copyright-symbol-link {
+      cursor: url('assets/cursors/glove-pointer.png') 0 0, pointer;
+ }
+
+ /* Remove pointer cursor from other text in the footer paragraph if necessary */
+ /* This ensures only the © has the pointer cursor */
+ .gallery-page-container footer p {
+      cursor: default; /* Ensure cursor is default for the entire paragraph */
+ }
+ .gallery-page-container footer p a.copyright-symbol-link {
+     cursor: url('assets/cursors/glove-pointer.png') 0 0, pointer; /* Re-apply pointer cursor to the link */
+ }
+
+
+/* ... other CSS rules ... */
+
+
+/* Class to hide elements */
+.gallery-page-container .hidden { display: none !important; visibility: hidden !important; opacity: 0 !important; height: 0 !important; overflow: hidden !important; padding: 0 !important; margin: 0 !important; border: none !important; position: absolute !important; width: 0 !important; }
+
+
+/* Button Press Effect */
+.gallery-page-container .filter-btn:active,
+.gallery-page-container .read-more-btn:active:not([disabled]),
+.gallery-page-container .page-link:active:not([disabled]),
+.gallery-page-container .goal-button:active:not([disabled]),
+.gallery-page-container .di-mind-button:active:not([disabled]),
+.gallery-page-container #exportGoalsBtn:active:not([disabled]), /* Added */
+.gallery-page-container .social-icons-container a:active,
+.search-toggle-btn:active,
+.gallery-page-container .safe-button:active:not(:disabled),
+.gallery-page-container .dial-number.enabled:active,
+.gallery-page-container .remove-goal-btn:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.25);
+    transition-duration: 0.05s !important;
+}
+
+/* --- START EASTER EGG SAFE STYLING --- */
+.gallery-page-container #secret-safe-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); display: flex; justify-content: center; align-items: center; z-index: 10002; opacity: 0; pointer-events: none; transition: opacity 0.5s ease; }
+.gallery-page-container #secret-safe-container.visible { opacity: 1; pointer-events: auto; }
+.gallery-page-container .safe { background: #2f2f2f; border: 5px solid var(--header-footer-border); border-radius: 10px; padding: 20px; width: 90%; max-width: 500px; box-shadow: 0 0 20px rgba(0,0,0,0.5), inset 0 0 10px rgba(255,255,255,0.1); position: relative; }
+.gallery-page-container .safe.creak-in { animation: creakIn 0.8s ease-out forwards; }
+@keyframes creakIn { 0% { transform: scale(0.5) rotate(-5deg); opacity: 0; } 50% { transform: scale(1.05) rotate(2deg); opacity: 1; } 100% { transform: scale(1) rotate(0); opacity: 1; } }
+.gallery-page-container .safe-door { background: var(--active-nav-bg); padding: 20px; border-radius: 5px; border: 2px solid var(--hover-border-color); }
+.gallery-page-container .dial-display { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; font-family: 'Oswald', sans-serif; font-size: 2rem; color: var(--text-color-light); background: #1a1a1a; padding: 10px; border-radius: 5px; border: 1px solid var(--header-footer-border); }
+.gallery-page-container .dial-digit { width: 30px; text-align: center; }
+.gallery-page-container .dial { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; max-width: 200px; margin-left: auto; margin-right: auto; }
+.gallery-page-container .dial-number { background: #555; color: #fff; border: 1px solid #777; border-radius: 50%; width: 45px; height: 45px; font-family: 'Oswald', sans-serif; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; cursor: not-allowed; transition: background 0.3s ease, transform 0.2s ease; }
+.gallery-page-container .dial-number[data-value="0"] { grid-column: 2 / 3; }
+.gallery-page-container .dial-number.enabled { background: var(--text-color-light); color: #333; border-color: var(--header-footer-border); cursor: pointer; }
+.gallery-page-container .dial-number.enabled:hover { background: #fff; transform: scale(1.1); }
+.gallery-page-container .safe-controls { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 15px; }
+.gallery-page-container .safe-button { flex: 1; padding: 10px; background: var(--header-footer-border); color: var(--text-color-light); border: 1px solid var(--hover-border-color); border-radius: 3px; font-family: 'Oswald', sans-serif; font-size: 0.9rem; text-transform: uppercase; cursor: pointer; transition: background 0.3s ease, transform 0.2s ease; }
+.gallery-page-container .safe-button:hover:not(:disabled) { background: var(--hover-border-color); transform: scale(1.05); }
+.gallery-page-container .safe-button:disabled { background: #333; color: #777; cursor: not-allowed; transform: none; opacity: 0.6; }
+.gallery-page-container .safe-message { text-align: center; font-family: 'Oswald', sans-serif; font-size: 1rem; color: var(--text-color-light); transition: color 0.3s ease; min-height: 1.2em; }
+.gallery-page-container .safe-message.error { color: #ff5555; animation: shake-error 0.5s cubic-bezier(.36,.07,.19,.97) both;}
+.gallery-page-container .safe-message.success { color: #55ff55; }
+.gallery-page-container .prize { text-align: center; padding: 20px; }
+.gallery-page-container .prize.visible { animation: prizeReveal 0.8s ease-out forwards; }
+@keyframes prizeReveal { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+.gallery-page-container .treasure-chest-glow { position: relative; display: inline-block; }
+.gallery-page-container .treasure-chest-image { width: 150px; height: auto; filter: drop-shadow(0 0 10px #ffd700); }
+.gallery-page-container .prize h3 { font-family: 'Limelight', cursive; font-size: 1.8rem; color: #ffd700; margin: 15px 0 !important; }
+.gallery-page-container .prize p { all: unset !important; font-family: 'EB Garamond', serif !important; font-size: 1.1rem !important; color: var(--text-color-light) !important; margin-bottom: 15px !important; text-align: center !important; hyphens: none !important; line-height: 1.7 !important; display: block !important; }
+.gallery-page-container .prize a { display: inline-block; padding: 10px 20px !important; background: #ffd700; color: #333 !important; text-decoration: none !important; font-family: 'Oswald', sans-serif; font-weight: 700; border-radius: 3px; transition: background 0.3s ease, transform 0.2s ease; margin-top: 10px; }
+.gallery-page-container .prize a:hover { background: #ffeb3b; transform: scale(1.05); }
+.gallery-page-container .safe.shake-error { animation: shake-error 0.5s cubic-bezier(.36,.07,.19,.97) both; }
+@keyframes shake-error { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
+/* --- END EASTER EGG SAFE STYLING --- */
+
+/* Easter Egg Organized Animation */
+@keyframes bounce1930s { 0% { transform: translate(-50%, -50%) scale(1); opacity: 1;} 20% { transform: translate(-50%, -70%) scale(1.2) rotate(5deg); } 40% { transform: translate(-50%, -50%) scale(0.9) rotate(-5deg); } 60% { transform: translate(-50%, -60%) scale(1.1); } 80% { transform: translate(-50%, -50%) scale(1); } 100% { transform: translate(-50%, -50%) scale(1); opacity: 0; } }
+.easter-egg-bounce { animation: bounce1930s 3s ease-in-out forwards; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10003; max-width: 200px; pointer-events: none; }
+
+/* Shake and Fade Animation */
+.gallery-page-container .shake-and-fade { animation: shakeAndFade 0.8s ease-out forwards; }
+@keyframes shakeAndFade { 0% { transform: translateX(0); opacity: 1; } 25% { transform: translateX(-10px) rotate(-2deg); } 50% { transform: translateX(10px) rotate(2deg); } 75% { transform: translateX(-5px) rotate(-1deg); } 100% { transform: translateX(0); opacity: 0; } }
+
+/* --- RESPONSIVE ADJUSTMENTS --- */
+@media (max-width: 768px) {
+    .gallery-page-container header h1 { font-size: 4.0rem; }
+    .gallery-page-container .filter-nav { padding: 0 15px !important; gap: 10px; }
+    .gallery-page-container footer p { font-size: 0.8rem; }
+    .gallery-page-container .page-content { padding: 20px !important; }
+    .gallery-page-container .page-content h1 { font-size: 2.2rem; }
+    .gallery-page-container .page-content h2 { font-size: 1.6rem; }
+    .gallery-page-container .page-content p, .gallery-page-container .preview-section p, .gallery-page-container .blog-card-details p { font-size: 1rem; line-height: 1.7; }
+    .gallery-page-container .preview-section h3 { font-size: 1.5rem; }
+    .gallery-page-container .blog-card-details h3 { font-size: 1.3rem; }
+    .gallery-page-container .centered-text { font-size: 1.1rem; margin: 30px 0 !important;}
+    .gallery-page-container .social-icons-container a { width: 50px; height: 50px; margin: 5px 8px !important; }
+    .gallery-page-container .social-icons-container a i { font-size: 1.6rem; }
+
+    /* IMPROVED SEARCH WIDGET FOR MOBILE */
+    .search-widget-container { top: 15px; right: 15px; display: block !important; }
+    .search-widget-container.expanded #pageSearchInput { width: 180px; }
+    .search-toggle-btn { width: 44px; height: 44px; font-size: 1.1rem;}
+    #pageSearchInput { height: 44px; border-radius: 22px; }
+
+    .gallery-page-container #full-blog-post-view h1 { font-size: 2rem; }
+    .gallery-page-container .safe { max-width: 95%; }
+    .gallery-page-container .dial { grid-template-columns: repeat(3, 1fr); }
+
+    /* IMPROVED BLOG GRID FOR MOBILE */
+    .gallery-page-container .blog-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+
+    #goals-content h1 { font-size: 2.2rem !important;}
+    #goals-content h2 { font-size: 1.6rem !important; }
+    .goal-list-vintage { padding: 10px; }
+    .goal-list-vintage li { padding: 10px 12px; /* Adjust padding */ }
+    .goal-list-vintage li .goal-text { font-size: 1rem; }
+
+    /* IMPROVED TELEGRAM SECTION FOR MOBILE */
+    #telegram-content h1 { font-size: 2.2rem !important; }
+    .telegram-input-area { flex-direction: column; gap: 15px; }
+    #focusInput { width: 100%; }
+    #getAdviceBtn { width: 100%; padding: 12px; }
+    .telegram-response-area h3.response-header { font-size: 1.4rem !important; }
+    .telegram-response-area p, .telegram-response-area li { font-size: 0.95rem !important; }
+    .telegram-focus-card h2 { font-size: 1.6rem !important; }
+    .telegram-focus-card p, .telegram-focus-card li { font-size: 1rem !important; }
+    .di-mind-feedback { max-width: 90%; }
+    .feedback-image { width: 100px; }
+
+    /* IMPROVED NAVIGATION FOR MOBILE */
+    .gallery-page-container .filter-nav .filter-btn {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+        min-width: 80px;
+    }
+
+    /* BETTER SPACING FOR MOBILE */
+    .gallery-page-container .main-content-area { padding: 15px !important; }
+    .gallery-page-container .page-content { margin: 15px auto !important; }
+
+    /* PERFORMANCE OPTIMIZATIONS FOR MOBILE */
+    .gallery-page-container .placeholder-image {
+        image-rendering: -webkit-optimize-contrast; /* Better image rendering on mobile */
+    }
+
+    /* DISABLE HOVER EFFECTS ON TOUCH DEVICES */
+    @media (hover: none) and (pointer: coarse) {
+        .gallery-page-container .placeholder-image:hover,
+        .gallery-page-container .blog-post-card:hover,
+        .gallery-page-container .filter-btn:hover:not(.active),
+        .gallery-page-container .read-more-btn:hover:not([disabled]),
+        .gallery-page-container .page-link:hover:not([disabled]),
+        .gallery-page-container .social-icons-container a:hover {
+            transform: none !important;
+            filter: none !important;
+            box-shadow: none !important;
+        }
+    }
+
+    /* IMPROVED TOUCH TARGETS */
+    .gallery-page-container .filter-btn,
+    .gallery-page-container .read-more-btn,
+    .gallery-page-container .page-link {
+        min-height: 48px !important; /* Larger touch targets */
+        min-width: 48px !important;
+    }
+
+    /* BETTER TEXT READABILITY ON MOBILE */
+    .gallery-page-container .page-content p {
+        word-spacing: 0.1em; /* Better word spacing for readability */
+        letter-spacing: 0.01em;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-page-container header h1 { font-size: 3.0rem; }
+    .gallery-page-container footer p { font-size: 0.75rem; }
+    .gallery-page-container .filter-buttons { gap: 5px; }
+    .gallery-page-container .filter-nav .filter-btn { padding: 8px 10px; font-size: 0.8rem; }
+    .gallery-page-container .page-content { padding: 15px !important; }
+    .gallery-page-container .page-content h1 { font-size: 2rem; }
+    .gallery-page-container .page-content h2 { font-size: 1.4rem; }
+    .gallery-page-container .page-content p, .gallery-page-container .preview-section p, .gallery-page-container .blog-card-details p { font-size: 0.95rem; line-height: 1.6; }
+    .gallery-page-container .preview-section h3 { font-size: 1.3rem; }
+    .gallery-page-container .blog-card-details h3 { font-size: 1.2rem; }
+    .gallery-page-container .centered-text { font-size: 1rem; margin: 25px 0 !important; }
+    .gallery-page-container .page-link { padding: 10px 20px !important; font-size: 0.9rem;}
+    .gallery-page-container .social-icons-container a { width: 45px; height: 45px; margin: 5px 6px !important;}
+    .gallery-page-container .social-icons-container a i { font-size: 1.4rem; }
+    .search-widget-container.expanded #pageSearchInput { width: calc(100vw - 75px); max-width: 200px; }
+    .search-widget-container { top: 10px; right: 10px; }
+    #pageSearchInput { height: 40px; border-radius: 20px; }
+    .gallery-page-container #full-blog-post-view h1 { font-size: 1.8rem; }
+    .gallery-page-container .post-meta { font-size: 0.85rem; }
+    .gallery-page-container .dial { gap: 8px; }
+    .gallery-page-container .dial-number { width: 40px; height: 40px; font-size: 1rem; }
+    .gallery-page-container .safe-button { font-size: 0.8rem; padding: 8px; }
+     .gallery-page-container #blog-content > h1 + p { padding: 0 20px !important; font-size: 1rem !important; }
+
+
+     #telegram-content h1 { font-size: 2rem !important; }
+     .telegram-input-area { flex-direction: column; }
+     .telegram-response-area { padding: 20px !important; }
+     .telegram-response-area::before { font-size: 1.1rem; }
+     .telegram-response-area h3.response-header { font-size: 1.3rem !important; }
+     .telegram-response-area p, .telegram-response-area li { font-size: 0.9rem !important; }
+     .telegram-focus-card { padding: 20px !important; }
+     .telegram-focus-card h2 { font-size: 1.4rem !important; }
+     .telegram-focus-card p, .telegram-focus-card li { font-size: 0.95rem !important; }
+     .di-mind-feedback { padding: 15px; }
+     .feedback-image { width: 80px; }
+     #diMindMessage { font-size: 1rem; }
+}
+
+/* Keep this rule */
+.gallery-page-container #distracted-content a.page-link.read-more-btn,
+.gallery-page-container #distracted-content button.page-link.read-more-btn {
+    display: block;
+}
+
+/* Ensure Cloudflare iframe is hidden if necessary */
+body > iframe[src*="challenges.cloudflare.com"] { display: none !important; }
+
+/* NEW: EXPLICIT FORCED OVERRIDE FOR FIRST CONTENT PARAGRAPH */
+/* This rule must come AFTER the all:unset rule to override it */
+.gallery-page-container #full-blog-post-view > h1 ~ p:not(.post-meta):first-of-type::first-letter,
+.gallery-page-container #full-blog-post-view > .post-meta ~ p:first-of-type::first-letter,
+.gallery-page-container #full-blog-post-view > img ~ p:first-of-type::first-letter,
+.gallery-page-container #full-blog-post-view p.first-paragraph::first-letter {
+    all: initial !important; /* Reset the "all: unset" */
+    font-family: 'EB Garamond', serif !important;
+    font-size: 4em !important;
+    font-weight: 700 !important;
+    line-height: 0.85 !important;
+    color: #444 !important;
+    margin-right: 2px !important;
+    float: left !important;
+    padding-top: 0.05em !important;
+    padding-right: 0.1em !important;
+    margin-bottom: -0.1em !important;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.1) !important;
+    position: relative !important;
+    display: block !important;
+    background: none !important;
+    border: none !important;
+}
+
+/* NEW: ULTIMATE FORCED OVERRIDE FOR BLOG POST DROP CAPS */
+/* This rule will override ALL other rules due to being last in the cascade */
+.gallery-page-container #full-blog-post-view > h1 + p:not(.post-meta)::first-letter,
+.gallery-page-container #full-blog-post-view > h1 + img + p:first-of-type::first-letter,
+.gallery-page-container #full-blog-post-view > .post-meta + img + p:first-of-type::first-letter,
+.gallery-page-container #full-blog-post-view > img + p:first-of-type::first-letter,
+.gallery-page-container #full-blog-post-view > h1 ~ p:not(.post-meta):first-of-type::first-letter,
+.gallery-page-container #full-blog-post-view > .post-meta ~ p:first-of-type::first-letter,
+.gallery-page-container #full-blog-post-view p.first-paragraph::first-letter {
+    all: initial !important; /* Reset any "all: unset" */
+    font-family: 'EB Garamond', serif !important;
+    font-size: 4em !important;
+    font-weight: 700 !important;
+    line-height: 0.85 !important;
+    color: #444 !important;
+    margin-right: 2px !important;
+    float: left !important;
+    padding-top: 0.05em !important;
+    padding-right: 0.1em !important;
+    margin-bottom: -0.1em !important;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.1) !important;
+    position: relative !important;
+    display: block !important;
+    background: none !important;
+    border: none !important;
+}
+
+/* Specific styles for full blog post images */
+.gallery-page-container #full-blog-post-view img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 20px auto;
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+}
+
+.feedback-image { 
+    width: 100px; 
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* ===== DW LANDER SECTION STYLES ===== */
+/* Ki State Landing Page Styles */
+.dw-lander-section {
+    margin: 40px 0;
+    padding: 30px;
+    background: linear-gradient(135deg, #fdfbf5 0%, #f7f5f0 100%);
+    border: 2px solid var(--subtle-border-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Ensure DW Lander images display properly */
+.dw-lander-section img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    border: 2px solid var(--subtle-border-color);
+    filter: grayscale(10%) contrast(105%) brightness(102%);
+    transition: transform 0.3s ease, filter 0.4s ease;
+}
+
+.dw-lander-section img:hover {
+    transform: scale(1.02) rotate(0.5deg);
+    filter: grayscale(0%) brightness(105%);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+/* Ki Section Image Containers */
+.ki-hero-image {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.ki-hero-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    border: 2px solid var(--subtle-border-color);
+}
+
+.ki-brain-image {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.ki-brain-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    border: 1px solid var(--subtle-border-color);
+}
+
+.ki-solitude-image {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.ki-solitude-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    border: 2px solid var(--subtle-border-color);
+}
+
+.ki-animation-image {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.ki-animation-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    border: 2px solid var(--subtle-border-color);
+}
+
+.dw-lander-section h2 {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+    color: var(--text-color);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.ki-intro {
+    text-align: center;
+    margin-bottom: 35px;
+    padding: 20px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 6px;
+    border: 1px solid var(--subtle-border-color);
+}
+
+.ki-intro p {
+    font-size: 1.3rem;
+    margin: 10px 0;
+    color: var(--text-color);
+}
+
+.ki-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.ki-content-left h3,
+.ki-content-right h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: var(--text-color);
+    border-bottom: 2px solid var(--subtle-border-color);
+    padding-bottom: 8px;
+}
+
+.ki-content-left p {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.ki-benefits {
+    list-style: none;
+    padding: 0;
+}
+
+.ki-benefits li {
+    margin-bottom: 12px;
+    padding: 10px 15px;
+    background: rgba(255,255,255,0.8);
+    border-left: 4px solid var(--telegram-border);
+    border-radius: 4px;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.ki-cta-box {
+    background: linear-gradient(145deg, #2a2725 0%, #3a3633 100%);
+    padding: 25px;
+    border-radius: 8px;
+    border: 2px solid var(--header-footer-border);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    text-align: center;
+}
+
+.ki-cta-box h3 {
+    color: var(--text-color-light);
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+.ki-cta-box p {
+    color: var(--text-color-light);
+    margin-bottom: 20px;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.ki-cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.ki-primary-btn {
+    background: linear-gradient(135deg, #f32e60 0%, #e91e63 100%);
+    color: white !important;
+    padding: 18px 30px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(243, 46, 96, 0.3);
+    border: none;
+}
+
+.ki-primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(243, 46, 96, 0.4);
+    background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%);
+}
+
+.ki-subtitle {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    font-weight: 400;
+}
+
+.ki-secondary-btn {
+    background: linear-gradient(135deg, #484848 0%, #1A1A1A 100%);
+    color: white !important;
+    padding: 15px 25px;
+    border-radius: 6px;
+    font-size: 1rem;
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.ki-secondary-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    background: linear-gradient(135deg, #1A1A1A 0%, #000000 100%);
+}
+
+.ki-cta-note {
+    font-size: 0.9rem;
+    color: #f32e60;
+    font-weight: 600;
+}
+
+.ki-testimonials {
+    margin: 40px 0;
+    text-align: center;
+}
+
+.ki-testimonials h3 {
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+    color: var(--text-color);
+}
+
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.testimonial-card {
+    background: rgba(255,255,255,0.9);
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid var(--subtle-border-color);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.testimonial-card p {
+    font-style: italic;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+.testimonial-author {
+    font-weight: 600;
+    color: var(--telegram-border);
+    font-size: 0.9rem;
+}
+
+.ki-final-cta {
+    text-align: center;
+    margin: 40px 0 20px 0;
+    padding: 30px;
+    background: #000000;
+    border-radius: 8px;
+    border: 2px solid var(--telegram-border);
+    color: #ffffff;
+}
+
+.ki-final-cta h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #cc4444;
+    text-shadow: 1px 1px 2px rgba(204, 68, 68, 0.3);
+}
+
+.ki-final-cta p {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    color: var(--text-color);
+}
+
+.ow-final-btn {
+    background: linear-gradient(135deg, #B8860B 0%, #DAA520 100%);
+    color: #2a2725 !important;
+    padding: 20px 35px;
+    border-radius: 10px;
+    font-size: 1.3rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(184, 134, 11, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.1);
+    border: 2px solid #8B4513;
+    position: relative;
+    overflow: hidden;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    animation: bounceIn 0.8s ease-out, pulse 2s infinite;
+    cursor: pointer;
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.3); opacity: 0; }
+    50% { transform: scale(1.05); opacity: 1; }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 6px 20px rgba(114, 47, 55, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.1); }
+    50% { box-shadow: 0 8px 25px rgba(114, 47, 55, 0.5), inset 0 0 0 2px rgba(255, 255, 255, 0.2); }
+    100% { box-shadow: 0 6px 20px rgba(114, 47, 55, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.1); }
+}
+
+@keyframes bounceHover {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-5px); }
+    60% { transform: translateY(-3px); }
+}
+
+.ow-final-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.ow-final-btn:hover::before {
+    left: 100%;
+}
+
+.ow-final-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(114, 47, 55, 0.4), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, #800020 0%, #722f37 100%);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    animation: bounceHover 1s ease-in-out;
+}
+
+.ow-final-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(114, 47, 55, 0.6), inset 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+/* ENHANCED DROP CAPS - LARGER AND BETTER STRUCTURED */
+.gallery-page-container .centered-text p::first-letter {
+    all: initial !important;
+    font-family: 'EB Garamond', serif !important;
+    font-size: 6em !important;
+    font-weight: 700 !important;
+    line-height: 0.8 !important;
+    color: #333 !important;
+    margin-right: 8px !important;
+    float: left !important;
+    padding-top: 0.08em !important;
+    padding-right: 0.15em !important;
+    margin-bottom: -0.15em !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.15) !important;
+    position: relative !important;
+    display: block !important;
+    background: none !important;
+    border: none !important;
+}
+
+.gallery-page-container #distracted-content > h1 + p::first-letter {
+    all: initial !important;
+    font-family: 'EB Garamond', serif !important;
+    font-size: 6em !important;
+    font-weight: 700 !important;
+    line-height: 0.8 !important;
+    color: #333 !important;
+    margin-right: 8px !important;
+    float: left !important;
+    padding-top: 0.08em !important;
+    padding-right: 0.15em !important;
+    margin-bottom: -0.15em !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.15) !important;
+    position: relative !important;
+    display: block !important;
+    background: none !important;
+    border: none !important;
+}
+
+/* Additional specificity for distracted content paragraph */
+.gallery-page-container #distracted-content p:first-child::first-letter,
+.gallery-page-container #distracted-content p:first-of-type::first-letter,
+.gallery-page-container #distracted-content > h1 + p::first-letter {
+    all: initial !important;
+    font-family: 'EB Garamond', serif !important;
+    font-size: 6em !important;
+    font-weight: 700 !important;
+    line-height: 0.8 !important;
+    color: #333 !important;
+    margin-right: 8px !important;
+    float: left !important;
+    padding-top: 0.08em !important;
+    padding-right: 0.15em !important;
+    margin-bottom: -0.15em !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.15) !important;
+    position: relative !important;
+    display: block !important;
+    background: none !important;
+    border: none !important;
+}
+
+/* ULTRA SPECIFIC RULE FOR DISTRACTED CONTENT DROP CAP */
+.gallery-page-container #distracted-content > h1 + p:first-letter {
+    all: initial !important;
+    font-family: 'EB Garamond', serif !important;
+    font-size: 6em !important;
+    font-weight: 700 !important;
+    line-height: 0.8 !important;
+    color: #333 !important;
+    margin-right: 8px !important;
+    float: left !important;
+    padding-top: 0.08em !important;
+    padding-right: 0.15em !important;
+    margin-bottom: -0.15em !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.15) !important;
+    position: relative !important;
+    display: block !important;
+    background: none !important;
+    border: none !important;
+}
+
+.gallery-page-container #organized-content .ow-tagline::first-letter {
+    all: initial !important;
+    font-family: 'EB Garamond', serif !important;
+    font-size: 6em !important;
+    font-weight: 700 !important;
+    line-height: 0.8 !important;
+    color: #333 !important;
+    margin-right: 8px !important;
+    float: left !important;
+    padding-top: 0.08em !important;
+    padding-right: 0.15em !important;
+    margin-bottom: -0.15em !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.15) !important;
+    position: relative !important;
+    display: block !important;
+    background: none !important;
+    border: none !important;
+}
+
+.gallery-page-container #goals-content .section-intro::first-letter {
+    all: initial !important;
+    font-family: 'EB Garamond', serif !important;
+    font-size: 6em !important;
+    font-weight: 700 !important;
+    line-height: 0.8 !important;
+    color: #333 !important;
+    margin-right: 8px !important;
+    float: left !important;
+    padding-top: 0.08em !important;
+    padding-right: 0.15em !important;
+    margin-bottom: -0.15em !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.15) !important;
+    position: relative !important;
+    display: block !important;
+    background: none !important;
+    border: none !important;
+}
+
+/* Responsive Design for Ki Section */
+@media (max-width: 768px) {
+    .ki-content-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .dw-lander-section {
+        padding: 20px;
+        margin: 20px 0;
+    }
+
+    .ki-cta-box {
+        padding: 20px;
+    }
+
+    .testimonial-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ki-final-cta {
+        padding: 20px;
+    }
+
+    .ki-primary-btn,
+    .ki-final-btn {
+        padding: 15px 25px;
+        font-size: 1.1rem;
+    }
+}

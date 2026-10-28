@@ -1,0 +1,11 @@
+// Local-only wrangler config for wrangler dev compatibility testing of the
+// exact bundle that gets deployed to Freebuff Sites (worker.js + ./assets… client)
+{
+    "name": "distracted-world-local-test",
+    "main": "worker.js",
+    "compatibility_date": "2026-10-01",
+    "assets": {
+        "directory": "./assets",
+        "binding": "ASSETS"
+    }
+}
