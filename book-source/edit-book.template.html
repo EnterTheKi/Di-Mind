@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Di-Mind · Private Editor</title>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=Limelight&family=Oswald:wght@400;700&family=Courier+Prime&display=swap" rel="stylesheet">
+    <style>
+        :root { --red:#8b0000; --gold:#d4af37; --cream:#f5f0e5; --ink:#2b2621; }
+        * { box-sizing: border-box; }
+        body { margin:0; font-family:'EB Garamond',serif; background:#1a1512; color:var(--ink); }
+        header.app-header { display:none; }
+
+        /* ---------- Lock screen ---------- */
+        #lock { min-height:100vh; display:flex; align-items:center; justify-content:center; }
+        #lock .card { background:var(--cream); border:2px solid var(--gold); padding:40px 34px; text-align:center; max-width:340px; box-shadow:0 0 60px rgba(0,0,0,.6); }
+        #lock h1 { font-family:'Limelight',cursive; color:var(--red); font-size:24px; margin:0 0 6px; }
+        #lock p { font-size:13px; margin:0 0 18px; color:#6a5f52; }
+        #codeInput { width:100%; padding:10px 12px; font-size:18px; text-align:center; letter-spacing:6px; border:1.5px solid var(--gold); background:#fff; font-family:'Courier Prime',monospace; }
+        #lockBtn { margin-top:14px; width:100%; padding:10px; background:var(--red); color:#f5e5be; border:1px solid #4b0505; font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:2px; cursor:pointer; }
+        #lockMsg { margin-top:10px; font-size:12px; color:var(--red); min-height:15px; }
+
+        /* ---------- Workspace ---------- */
+        #workspace { display:none; grid-template-rows:auto auto 1fr; min-height:100vh; }
+        .toolbar { background:#241d18; color:#cbb87f; padding:10px 16px; display:flex; gap:10px; flex-wrap:wrap; align-items:center; position:sticky; top:0; z-index:10; }
+        .toolbar .title { font-family:'Limelight',cursive; color:var(--gold); margin-right:auto; font-size:15px; }
+        .toolbar button { font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:1px; font-size:12px; padding:8px 14px; cursor:pointer; background:var(--red); color:#f5e5be; border:1px solid #4b0505; }
+        .toolbar button.ghost { background:transparent; color:#cbb87f; }
+        .toolbar .hint { font-size:11px; color:#8a7a5f; }
+        .panes { display:grid; grid-template-columns:1fr 1fr; gap:0; height:calc(100vh - 48px); }
+        .pane { overflow:auto; padding:0; }
+        .pane h2 { font-family:'Oswald',sans-serif; text-transform:uppercase; font-size:12px; letter-spacing:2px; color:#8a7a5f; margin:0; padding:10px 16px; background:#241d18; position:sticky; top:0; }
+        #editor { width:100%; height:100%; min-height:60vh; border:0; resize:vertical; padding:22px 26px; font-family:'Courier Prime',monospace; font-size:13.5px; line-height:1.6; background:var(--cream); color:var(--ink); outline:none; display:block; }
+        #preview { padding:30px 40px; }
+        @media (max-width: 900px){ .panes{ grid-template-columns:1fr; grid-template-rows:50vh 50vh; } }
+
+        /* ---------- Rendered book ---------- */
+        #preview article { max-width:560px; margin:0 auto; background:var(--cream); border:1px solid #d8ccb4; padding:44px 46px; box-shadow:0 4px 18px rgba(0,0,0,.35); }
+        #preview .md-b { font-weight:bold; }
+        #preview .md-chapter { border-bottom:2px solid var(--gold); padding-bottom:6px; }
+        #preview rule { display:block; height:1px; background:#b8a678; border:0; width:38%; margin:26px auto; }
+        @media print {
+            body { background:#fff; }
+            .panes { display:block; height:auto; grid-template-rows:none; }
+            .pane { overflow:visible; }
+            #editorPane, .toolbar, .pane h2 { display:none !important; }
+            #preview { padding:0; }
+            #preview article { border:0; box-shadow:none; background:#fff; max-width:none; padding:0 10mm; }
+            #preview article .md-h2 { page-break-before:always; }
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header"><h1>Editor</h1></header>
+
+    <!-- Lock screen -->
+    <div id="lock">
+        <div class="card">
+            <h1>Private Editor</h1>
+            <p>THE SWITCH · book workspace<br>Access restricted</p>
+            <input id="codeInput" type="password" inputmode="numeric" autocomplete="off" placeholder="· · · ·" aria-label="Access code">
+            <button id="lockBtn">Unlock</button>
+            <div id="lockMsg"></div>
+        </div>
+    </div>
+
+    <!-- Workspace -->
+    <div id="workspace">
+        <div class="toolbar">
+            <span class="title">THE SWITCH — Book Workspace</span>
+            <button id="dlBtn">⬇ Book Source (.md)</button>
+            <button id="printBtn">🖨 Print / Save as PDF</button>
+            <span class="hint">Edit left → preview right · printing gives a styled PDF</span>
+        </div>
+        <div class="panes">
+            <div class="pane" id="editorPane">
+                <h2>Editable Source (Markdown)</h2>
+                <textarea id="editor" spellcheck="false"></textarea>
+            </div>
+            <div class="pane">
+                <h2>Live Preview</h2>
+                <div id="preview"><article id="bookRender"></article></div>
+            </div>
+        </div>
+    </div>
+
+<script>
+/* ====== ACCESS CODE — change this string anytime ====== */
+const EDIT_CODE = '3327';
+/* ====================================================== */
+
+// The current book source. Refreshed automatically by tools/build-book.py
+// (reset section between BEGIN/END markers), or edit inline here.
+const BOOK_SOURCE_BASE = `
+<!--BEGIN_BOOK_SOURCE-->
+__BOOK_SOURCE_PLACEHOLDER__
+<!--END_BOOK_SOURCE-->`;
+
+(function () {
+    const $ = (id) => document.getElementById(id);
+    let unlocked = false;
+
+    const tryUnlock = () => {
+        const val = $('codeInput').value.trim();
+        if (val === EDIT_CODE) {
+            unlocked = true;
+            $('lock').style.display = 'none';
+            $('workspace').style.display = 'grid';
+            $('editor').value = BOOK_SOURCE_BASE.trim();
+            render();
+        } else {
+            $('lockMsg').textContent = 'Wrong code. The door stays shut.';
+            $('lockMsg').style.color = '#8b0000';
+        }
+    };
+    $('lockBtn').addEventListener('click', tryUnlock);
+    $('codeInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') tryUnlock(); });
+
+    // --- Tiny markdown renderer (matches tools/build-book.py) ---
+    const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const inline = (s) => s
+        .replace(/\*\*(.+?)\*\*/g, '<span class="md-b">$1</span>')
+        .replace(/(^|[^*])\*([^*]+)\*/g, '$1<em>$2</em>');
+
+    function render() {
+        const src = $('editor').value;
+        const out = [];
+        let para = [];
+        let inArticle = false;
+        const flush = () => { if (para.length) { out.push('<p>' + inline(esc(para.join(' '))) + '</p>'); para = []; } };
+        for (const line0 of src.split(/\r?\n/)) {
+            const s = line0.trim();
+            if (s.startsWith('<!--BEGIN_BOOK_SOURCE-->')) { inArticle = true; out.push(''); continue; }
+            if (s.startsWith('<!--END_BOOK_SOURCE-->')) { break; }
+            if (!inArticle) continue;
+            if (!s) { flush(); continue; }
+            if (/^---$|^===$/.test(s)) { flush(); out.push('<rule></rule>'); continue; }
+            if (s.startsWith('## ')) { flush(); out.push('<h3 class="md-h3">' + inline(esc(s.slice(3))) + '</h3>'); continue; }
+            if (s.startsWith('# '))  { flush(); out.push('<h2 class="md-h2 md-chapter" style="margin-top:34px;">' + inline(esc(s.slice(2))) + '</h2>'); continue; }
+            if (s.startsWith('> '))  { flush(); out.push('<p><em>' + inline(esc(s.slice(2))) + '</em></p>'); continue; }
+            if (/^\d+\.\s/.test(s))  { flush(); out.push('<p>' + inline(esc(s)) + '</p>'); continue; }
+            para.push(s);
+        }
+        flush();
+        // front matter → cover block
+        const fm = src.match(/^\s*---\s*\n([\s\S]*?)\n---/);
+        let cover = '';
+        if (fm) {
+            const kv = {}; fm[1].split(/\n/).forEach(l => { const i = l.indexOf(':'); if (i > 0) kv[l.slice(0, i).trim()] = l.slice(i + 1).trim().replace(/^"|"$/g, ''); });
+            cover = '<div style="text-align:center;border:2px solid #c49e3d;background:linear-gradient(165deg,#e9ddc1,#efe5cd,#e3d5b4);color:#2b2621;padding:26px 18px;margin-bottom:34px;">' +
+                '<div style="font-family:Courier Prime;font-size:9px;letter-spacing:2px;color:#a8842e;">' + esc(kv.AUTHOR || '') + '</div>' +
+                '<div style="font-family:Limelight;font-size:34px;color:#5e2d18;margin:12px 0 4px;">' + esc(kv.TITLE || '') + '</div>' +
+                '<div style="font-style:italic;">' + esc(kv.SUBTITLE || '') + '</div>' +
+                '<div style="font-size:11px;margin-top:6px;color:#6a5a3a;">' + esc(kv.TAGLINE || '') + '</div>' +
+                (kv.COVER_QUOTE ? '<div style="font-style:italic;font-size:11px;margin-top:14px;color:#6a5a3a;">“' + esc(kv.COVER_QUOTE) + '”</div>' : '') +
+                '<div style="font-family:Courier Prime;font-size:10px;letter-spacing:2px;color:#a8842e;margin-top:16px;">' + esc(kv.YEAR || '') + '</div></div>';
+        }
+        $('bookRender').innerHTML = cover + out.join('\n');
+    }
+    $('editor').addEventListener('input', render);
+
+    // --- Download the edited source ---
+    $('dlBtn').addEventListener('click', () => {
+        const text = $('editor').value;
+        // strip wrapper markers, keep front matter → book-source/the-switch.md content
+        let md = text;
+        const m = md.match(/<!--BEGIN_BOOK_SOURCE-->([\s\S]*?)<!--END_BOOK_SOURCE-->/);
+        if (m) md = m[1].trim();
+        const blob = new Blob([md + '\n'], { type: 'text/markdown' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'the-switch.md';
+        a.click();
+        URL.revokeObjectURL(a.href);
+    });
+
+    // --- Print / Save as PDF ---
+    $('printBtn').addEventListener('click', () => window.print());
+})();
+</script>
+</body>
+</html>
