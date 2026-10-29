@@ -1998,3 +1998,31 @@ body > iframe[src*="challenges.cloudflare.com"] { display: none !important; }
         font-size: 1.1rem;
     }
 }
+
+/* ============ THE BOOK — THE SWITCH ============ */
+.book-layout { display: flex; gap: 30px; align-items: flex-start; margin-top: 15px; flex-wrap: wrap; justify-content: center; }
+.book-cover {
+  flex: 0 0 230px; width: 230px; height: 330px; perspective: 600px;
+}
+.book-cover-inner {
+  width: 100%; height: 100%; background: linear-gradient(165deg, #e9ddc1 0%, #efe5cd 55%, #e3d5b4 100%);
+  border-radius: 4px 10px 10px 4px; border: 2px solid #c49e3d; box-shadow:
+    -6px 0 0 -2px #b3a075, 8px 10px 22px rgba(0,0,0,0.35), inset 0 0 30px rgba(122,96,42,0.12);
+  color: #2b2621; display: flex; flex-direction: column; align-items: center; text-align: center;
+  padding: 18px 14px; position: relative; transform: rotateY(-6deg);
+}
+.book-cover-inner::before {
+  content: ""; position: absolute; inset: 8px; border: 1px solid rgba(212,175,55,0.65); border-radius: 3px 7px 7px 3px; pointer-events: none;
+}
+.book-cover-series { font-family: 'Courier Prime', monospace; font-size: 8.5px; letter-spacing: 1.5px; color: #a8842e; }
+.book-cover-title { font-family: 'Limelight', cursive; font-size: 44px; line-height: 1.05; color: #5e2d18; margin: 20px 0 6px; text-shadow: 1px 1px 0 #c49e3d; }
+.page-content h2.book-cover-title { color: #5e2d18; }
+.book-cover-sub { font-family: 'EB Garamond', serif; font-style: italic; font-size: 12px; color: #2b2621; }
+.book-cover-quote { margin: 18px 6px; font-family: 'EB Garamond', serif; font-style: italic; font-size: 10.5px; color: #6a5a3a; line-height: 1.5; }
+.book-cover-year { margin-top: auto; font-family: 'Courier Prime', monospace; font-size: 10px; letter-spacing: 2px; color: #a8842e; }
+.book-details { flex: 1 1 300px; min-width: 260px; }
+.book-details h2 { font-size: 1.15em; }
+.book-details p { line-height: 1.65; }
+.book-actions { display: flex; gap: 12px; flex-wrap: wrap; margin: 18px 0 10px; }
+.book-btn { text-decoration: none; display: inline-flex; align-items: center; }
+.book-note { font-family: 'Courier Prime', monospace; font-size: 0.82em; color: #555; font-style: italic; }

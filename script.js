@@ -17,6 +17,7 @@
         distracted: container.querySelector('#distracted-content'),
         organized: container.querySelector('#organized-content'),
         blog: container.querySelector('#blog-content'),
+        book: container.querySelector('#book-content'),
         goals: container.querySelector('#goals-content'),
         // Note: Telegram section is nested within goals content
         telegram: container.querySelector('#goals-content .telegram-section'), // Select nested Telegram section
@@ -1680,6 +1681,7 @@
             { filter: 'distracted', name: 'Distracted World', selectors: ['h1', 'h2', 'p:not(.post-meta)'] },
             { filter: 'organized', name: 'Organized World', selectors: ['h1', 'h2', 'p:not(.post-meta)'] },
             { filter: 'blog', name: 'Blog List', selectors: ['h1', '> h1 + p', '.blog-post-card h3', '.blog-post-card p'], isBlogList: true },
+            { filter: 'book', name: 'The Book — THE SWITCH', selectors: ['h1', 'h2', 'p:not(.post-meta)'] },
             // Combine Goals & Telegram search as they are in the same content section (#goals-content)
             { filter: 'goals', name: 'Goals & Telegram', selectors: [
                 'h1', // Main title
