@@ -1,5 +1,7 @@
 export default {
   async fetch(request, env) {
+    const url = new URL(request.url);
+
     // 1. Pass through to the static asset layer first.
     let response = await env.ASSETS.fetch(request);
 
@@ -10,7 +12,6 @@ export default {
     //    are served the app shell — the SPA router inside index.html parses the real
     //    pathname and decides what to display.
     if (response.status === 404) {
-      const url = new URL(request.url);
       const lastSegment = url.pathname.split('/').pop() || '';
 
       const shell = () => env.ASSETS.fetch(new Request(url.origin + '/index.html'));
@@ -28,9 +29,19 @@ export default {
             if (probe.body) await probe.body.cancel();
             continue;
           }
-          return new Response(probe.body, probe);
+          response = probe;
+          break;
         }
       }
+    }
+
+    // 3. PDFs (editable content — the book rebuilds often): re-serve them as
+    //    non-cacheable responses so edge/browser caches always show the latest
+    //    build after a redeploy instead of a stale pinned copy.
+    if (url.pathname.toLowerCase().endsWith('.pdf') && response.status === 200) {
+      const noStore = new Response(response.body, response);
+      noStore.headers.set('Cache-Control', 'no-store, must-revalidate');
+      return noStore;
     }
 
     return response;

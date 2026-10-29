@@ -37,7 +37,7 @@ The Girl by the Lake holds the light. She doesn't say anything. She just holds i
 
 Even before Di-Mind knows the rules, he's doing pieces of them. He writes something at dawn — the first line of the list. He thinks about it — between messages, between distractions. But he talks about it too much. He tells the noise about his plans. The noise breaks the signal.
 
-The three rules — rebuilt the Ki way:
+The three rules:
 
 1. Read the list three times — morning, noon, night. Feel it. Not memorize.
 2. Think of it as often as possible. Every thought is signal.
@@ -67,7 +67,7 @@ The Girl by the Lake turns her head slightly. Not a big movement — a soft conf
 
 # Act III — The Day
 
-## 5:00 — Meditate / Tune (Spirituality)
+## 5:00 — Meditate / Tune
 
 Ten minutes. Before anything. The God channel — Ki — runs clean. Not because I forced it. Because the list said gold, and the feeling followed.
 
@@ -75,7 +75,7 @@ Meditation isn't a habit. It's the frequency set. The framework lives here: high
 
 The Voice of the Radio doesn't stop. It just plays a different frequency. Jazz that dances with focus instead of pulling against it. The switch doesn't kill noise. It transforms it.
 
-## 5:30 — Pushups / Evidence (Discipline)
+## 5:30 — Pushups / Evidence
 
 Hope is noise. Evidence is signal. Pushups are evidence. Cold shower is evidence. Clean eating — no alcohol, no sugar, no distraction fuel — is the receiving posture.
 
@@ -111,11 +111,11 @@ Ki's Haven — the vision. Not the goal first. The identity first. The circuit f
 
 Travel plans — Budapest to Transylvania to the path that leads to the house. Not a fantasy trip. A signal path. Each new place confirms: I'm not stuck. I'm moving with the circuit, not against the noise.
 
-## 15:00 — The Girl / Stories
+## 15:00 — The Girl by the Lake
 
-The Girl by the Lake appears at 15:00. Not suddenly — softly, like the mirror scene. She's been there since the story was written. A hidden girl with a magical stone, near water, holding something that glows.
+The Girl by the Lake appears at 15:00. Not suddenly — softly, like the mirror scene. She's been there since the beginning. A hidden girl with a magical stone, near water, holding something that glows.
 
-She doesn't talk. She holds. The forgotten memory — Pixowave, the hidden picture, the animation idea, the inner child returning. These aren't extra content. They're the list in story form.
+She doesn't talk. She holds. The forgotten memory — Pixowave, the hidden picture, the inner child returning. These aren't extra content. They're the list in story form.
 
 Di-Mind looks at her for a moment. Not long. Just enough to confirm: the inner image is matching the outer reality. The light she's holding is the same gold the list describes. Not a different light. The same.
 
@@ -147,15 +147,13 @@ Di-Mind was distracted. Then he wrote one line. Then he read it three times. The
 
 That's the story. Di-Mind, The Voice, The Child, The Girl, The Traveler — lost in noise, found the switch, wrote the list, sent gold. 2026.
 
-The seven themes — spirituality, discipline, stories, life planning, content loop, gratitude, the mirror — woven through one day. Organized by time, by feeling, by signal, by gold.
-
 ===
 
 # About This Book
 
-Built from the same physics as the 1933 book — feeling creates, the list is the plan, three rules protect the signal, gratitude amplifies. The characters are different — Di-Mind, The Voice, The Child, The Girl, The Traveler — the arc is the same: distracted, then disciplined.
+Feeling creates. The list is the plan. Three rules protect the signal. Gratitude amplifies. Di-Mind walked one day from the noise of the Distracted WORLD to the quiet of Discipline — and the path is the same gold for anyone who reads it slowly.
 
-No copied phrases. The vocabulary is my own — gold, switch, signal, same light, 3327, Ki, God channel, no filler. The subtitle: A Di-Mind Story. From Distracted WORLD to Discipline. That's all.
+Read the list three times a day. Think of it often. Speak of it to no one but the Ki inside.
 
 ---
 

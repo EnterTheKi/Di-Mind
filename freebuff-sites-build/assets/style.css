@@ -20,7 +20,7 @@
     --telegram-border: #8b6f47; /* Used for telegram dashed border & accent */
     --highlight-bg: #FF0000; /* Search highlight color */
     --highlight-text: white;
-    --goal-list-bg: url('assets/textures/subtle-paper.png') repeat; /* Subtle paper texture for goal list */
+    --goal-list-bg: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23g)' opacity='0.05'/%3E%3C/svg%3E") repeat; /* Subtle paper texture for goal list */
     --goal-item-bg: #fdfbf5; /* Slightly off-white for goal items */
 }
 
@@ -34,7 +34,8 @@ body, .gallery-page-container {
 
 /* --- Custom Cursors --- */
 .gallery-page-container {
-    cursor: url('assets/cursors/glove-default.png') 4 2, default;
+    cursor: default;
+    cursor: pointer;
 }
 .gallery-page-container a,
 .gallery-page-container button,
@@ -61,8 +62,7 @@ body, .gallery-page-container {
 .gallery-page-container .goal-list-vintage li input[type="checkbox"],
 .gallery-page-container .goal-list-vintage li .remove-goal-btn,
 .gallery-page-container #exportGoalsBtn { /* Added export button */
-    cursor: url('assets/cursors/glove-pointer.png') 0 0, pointer;
-}
+    cursor: pointer;}
 .gallery-page-container input[type="search"],
 .gallery-page-container input[type="text"],
 .gallery-page-container textarea {
@@ -79,7 +79,7 @@ body, .gallery-page-container {
 }
 .gallery-page-container::after {
     content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-image: url('assets/textures/film-grain.png');
+    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23g)' opacity='0.07'/%3E%3C/svg%3E");
     background-repeat: repeat; opacity: 0.09; pointer-events: none; z-index: 10000;
     animation: grain-flicker 0.3s infinite steps(2);
 }
@@ -378,7 +378,7 @@ footer p::first-letter,
     border: 1px solid var(--subtle-border-color);
     box-shadow: inset 0px 0px 15px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0,0,0,0.1);
     position: relative;
-    background-image: url('assets/textures/subtle-paper.png'); 
+    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23g)' opacity='0.05'/%3E%3C/svg%3E");
     background-repeat: repeat;
     /* Add vintage page edge effect */
     border-right: 2px solid rgba(0,0,0,0.03);
@@ -638,7 +638,7 @@ footer p::first-letter,
 #newGoalInput:disabled { background-color: #eee; cursor: not-allowed; }
 #newGoalInput::placeholder { color: #888; font-style: italic; }
 
-#addGoalBtn.goal-button { padding: 10px 20px !important; background-color: #555 !important; color: var(--text-color-light) !important; border: 1px solid #333 !important; /* Darker border */ border-radius: 2px !important; /* Sharper corners */ font-family: 'Oswald', sans-serif !important; font-weight: 700 !important; text-transform: uppercase !important; cursor: url('assets/cursors/glove-pointer.png') 0 0, pointer !important; transition: background-color 0.3s ease, transform 0.2s ease !important; flex-shrink: 0; line-height: normal; appearance: button; -webkit-appearance: button; -moz-appearance: button; box-shadow: 1px 1px 3px rgba(0,0,0,0.2); }
+#addGoalBtn.goal-button { padding: 10px 20px !important; background-color: #555 !important; color: var(--text-color-light) !important; border: 1px solid #333 !important; /* Darker border */ border-radius: 2px !important; /* Sharper corners */ font-family: 'Oswald', sans-serif !important; font-weight: 700 !important; text-transform: uppercase !important; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease !important; flex-shrink: 0; line-height: normal; appearance: button; -webkit-appearance: button; -moz-appearance: button; box-shadow: 1px 1px 3px rgba(0,0,0,0.2); }
 #addGoalBtn.goal-button:hover:not(:disabled) { background-color: #333 !important; transform: scale(1.05) !important; }
 #addGoalBtn.goal-button:disabled { background-color: #aaa !important; border-color: #aaa !important; cursor: not-allowed; transform: none !important; opacity: 0.7; }
 
@@ -698,7 +698,7 @@ footer p::first-letter,
     height: 18px; 
     flex-shrink: 0; 
     accent-color: var(--active-nav-bg); 
-    cursor: url('assets/cursors/glove-pointer.png') 0 0, pointer; 
+    cursor: pointer; 
     appearance: none; 
     -webkit-appearance: none; 
     background-color: #f5f1e6; /* Warmer background */
@@ -1201,8 +1201,7 @@ hr.telegram-divider {
 
  /* Ensure the cursor is a pointer over the copyright link only */
  .gallery-page-container footer p a.copyright-symbol-link {
-      cursor: url('assets/cursors/glove-pointer.png') 0 0, pointer;
- }
+      cursor: pointer; }
 
  /* Remove pointer cursor from other text in the footer paragraph if necessary */
  /* This ensures only the © has the pointer cursor */
@@ -1210,7 +1209,7 @@ hr.telegram-divider {
       cursor: default; /* Ensure cursor is default for the entire paragraph */
  }
  .gallery-page-container footer p a.copyright-symbol-link {
-     cursor: url('assets/cursors/glove-pointer.png') 0 0, pointer; /* Re-apply pointer cursor to the link */
+     cursor: pointer; /* Re-apply pointer cursor to the link */
  }
 
 
@@ -1997,4 +1996,283 @@ body > iframe[src*="challenges.cloudflare.com"] { display: none !important; }
         padding: 15px 25px;
         font-size: 1.1rem;
     }
+}
+
+/* ============ THE BOOK — THE SWITCH ============ */
+.book-layout { display: flex; gap: 30px; align-items: flex-start; margin-top: 15px; flex-wrap: wrap; justify-content: center; }
+.book-cover {
+  flex: 0 0 230px; width: 230px; height: 330px; perspective: 600px;
+}
+.book-cover-inner {
+  width: 100%; height: 100%; background: linear-gradient(165deg, #e9ddc1 0%, #efe5cd 55%, #e3d5b4 100%);
+  border-radius: 4px 10px 10px 4px; border: 2px solid #c49e3d; box-shadow:
+    -6px 0 0 -2px #b3a075, 8px 10px 22px rgba(0,0,0,0.35), inset 0 0 30px rgba(122,96,42,0.12);
+  color: #2b2621; display: flex; flex-direction: column; align-items: center; text-align: center;
+  padding: 18px 14px; position: relative; transform: rotateY(-6deg);
+}
+.book-cover-inner::before {
+  content: ""; position: absolute; inset: 8px; border: 1px solid rgba(212,175,55,0.65); border-radius: 3px 7px 7px 3px; pointer-events: none;
+}
+.book-cover-series { font-family: 'Courier Prime', monospace; font-size: 8.5px; letter-spacing: 1.5px; color: #a8842e; }
+.book-cover-title { font-family: 'Limelight', cursive; font-size: 44px; line-height: 1.05; color: #5e2d18; margin: 20px 0 6px; text-shadow: 1px 1px 0 #c49e3d; }
+.page-content h2.book-cover-title { color: #5e2d18; }
+.book-cover-sub { font-family: 'EB Garamond', serif; font-style: italic; font-size: 12px; color: #2b2621; }
+.book-cover-quote { margin: 18px 6px; font-family: 'EB Garamond', serif; font-style: italic; font-size: 10.5px; color: #6a5a3a; line-height: 1.5; }
+.book-cover-year { margin-top: auto; font-family: 'Courier Prime', monospace; font-size: 10px; letter-spacing: 2px; color: #a8842e; }
+.book-details { flex: 1 1 300px; min-width: 260px; }
+.book-details h2 { font-size: 1.15em; }
+.book-details p { line-height: 1.65; }
+.book-actions { display: flex; gap: 12px; flex-wrap: wrap; margin: 18px 0 10px; }
+.book-btn { text-decoration: none; display: inline-flex; align-items: center; }
+.book-note { font-family: 'Courier Prime', monospace; font-size: 0.82em; color: #555; font-style: italic; }
+
+/* ============ ASCII ART PLATES (blog "images") ============ */
+.gallery-page-container pre.ascii-art {
+    font-family: 'Courier Prime', 'Courier New', monospace;
+    font-size: 1rem;
+    line-height: 1.4;
+    letter-spacing: 1px;
+    color: var(--text-color);
+    background: none;
+    border: none;
+    margin: 0 !important;
+    padding: 0;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: pre;
+    text-align: center;
+    user-select: none;
+}
+.gallery-page-container .ascii-card { font-size: 1.15rem; letter-spacing: 3px; }
+.gallery-page-container .ascii-banner {
+    font-size: 1.05rem;
+    color: #673a55;
+    margin: 10px auto 5px auto !important;
+    padding-top: 14px; padding-bottom: 14px;
+}
+.gallery-page-container .ascii-banner-rule { color: inherit; }
+
+/* ============ BOOK FEATURE CARD (in blog) ============ */
+.gallery-page-container a.blog-book-feature {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--goal-item-bg);
+    border: 1px solid var(--subtle-border-color);
+    border-radius: 3px;
+    overflow: hidden;
+    text-decoration: none !important;
+    color: inherit;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    transition: transform 0.4s cubic-bezier(0.25,0.8,0.25,1), box-shadow 0.4s ease, border-color 0.4s ease;
+    margin-bottom: 30px !important;
+}
+.gallery-page-container a.blog-book-feature:hover {
+    transform: translateY(-8px) rotate(0.5deg);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+    border-color: var(--hover-border-color);
+}
+.gallery-page-container a.blog-book-feature .blog-image-placeholder {
+    min-height: 150px;
+    height: auto;
+    padding: 20px 10px;
+}
+.gallery-page-container a.blog-book-feature .ascii-art {
+    font-family: 'Courier Prime', 'Courier New', monospace; font-size: 1rem;
+    color: var(--text-color); letter-spacing: 2px; line-height: 1.5; white-space: pre; text-align: center;
+}
+.gallery-page-container a.blog-book-feature .blog-card-details { padding: 5px 25px 20px 25px; }
+
+/* ============ PROFESSIONAL POLISH PASS ============ */
+
+/* Refine ASCII plate tuning: keep them looking 'set in type', never 'emoji' */
+pre.ascii-art { font-style: normal; font-variant-ligatures: none; }
+pre.ascii-art.ascii-card { font-size: 1.35rem; color: var(--heading-color, var(--text-color)); }
+pre.ascii-art.ascii-banner { font-size: 1rem; letter-spacing: 2px; color: var(--heading-color, var(--text-color)); }
+
+/* Make the pulsing hero CTA calm and confident instead of distracting */
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 6px 20px rgba(114, 47, 55, 0.25), inset 0 0 0 2px rgba(255, 255, 255, 0.1); }
+    50% { box-shadow: 0 8px 26px rgba(114, 47, 55, 0.35), inset 0 0 0 2px rgba(255, 255, 255, 0.15); }
+}
+@keyframes bounceIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Gentle, consistent hover lift for all small controls */
+.filter-btn, .read-more-btn, .ow-final-btn, .telegram-btn,
+.goal-complete-btn, .goal-remove-btn, .home-recent-card, .blog-post-card,
+button, [role="button"], [data-target-filter], a[style*="cursor"] {
+    cursor: pointer;
+}
+.filter-btn, .read-more-btn, .telegram-btn, .goal-complete-btn, .goal-remove-btn {
+    transition: transform 0.2s ease, box-shadow 0.25s ease, background-color 0.3s ease, color 0.3s ease;
+}
+.filter-btn:hover, .read-more-btn:hover, .telegram-btn:hover,
+.goal-complete-btn:hover, .goal-remove-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
+}
+
+/* Visible keyboard focus everywhere (accessibility = professionalism) */
+a:focus-visible, button:focus-visible, [role="button"]:focus-visible,
+input:focus-visible, textarea:focus-visible, pre.ascii-art:focus-visible {
+    outline: 2px solid #b8860b;
+    outline-offset: 2px;
+}
+
+/* Placeholder text: visible on first look, not ghost-grey */
+#newGoalInput::placeholder, #focusInput::placeholder,
+.telegram-request-input::placeholder, #pageSearchInput::placeholder {
+    color: #8f8574;
+    font-style: italic;
+    opacity: 1;
+}
+
+/* Drop caps need left-aligned text to sit properly */
+#home-content > h2.home-intro-header + p:first-of-type,
+#distracted-content > h1 + p:first-of-type,
+#organized-content > h1 + p:first-of-type,
+#goals-content > h1 + p.section-intro,
+#blog-content > h1 + p,
+.gallery-page-container #full-blog-post-view > h1 + p:first-of-type:not(.post-meta),
+.gallery-page-container #full-blog-post-view .post-content p:first-of-type {
+    text-align: left !important;
+}
+
+/* Cuisine-grade section separators: a quiet engraved rule with a diamond */
+.gallery-page-container .home-section-separator {
+    border-top: none !important;
+    border-bottom: none !important;
+    height: 1px !important;
+    background: linear-gradient(to right, transparent, var(--subtle-border-color, #8a8172) 18%, var(--subtle-border-color, #8a8172) 82%, transparent) !important;
+    position: relative;
+    opacity: 1 !important;
+}
+
+/* Selection color matches the paper/gold palette */
+::selection { background: #c9d2a8; color: #2b241c; }
+html { scroll-behavior: smooth; }
+
+/* Unified framed look for inline content images */
+.gallery-page-container .page-content img.placeholder-image {
+    background-color: #fdfbf6 !important;
+    border: 1px solid rgba(120, 105, 80, 0.35) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    padding: 8px !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease !important;
+}
+
+/* Measured reading columns for long-form text (professional typography) */
+#full-blog-post-view .post-content p,
+#full-blog-post-view .post-content ul,
+#full-blog-post-view .post-content ol,
+#full-blog-post-view .post-content h2,
+#book-content .book-copy,
+#home-content .preview-section p {
+    max-width: 74ch;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- Polish round 2 --- */
+
+/* The one-line blog lede: no drop cap, keep centered — drop caps belong to long-form text */
+#blog-content > h1 + p::first-letter {
+    font-family: inherit !important;
+    font-size: 1.2rem !important;
+    font-weight: normal !important;
+    float: none !important;
+    line-height: inherit !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    color: inherit !important;
+    text-shadow: none !important;
+}
+
+/* Book feature CTA as a real button */
+.book-open-cta {
+    display: inline-block;
+    background: #3a3530;
+    color: #f5efe3 !important;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 10px 26px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+    transition: transform 0.2s ease, box-shadow 0.25s ease, background-color 0.3s ease;
+}
+.gallery-page-container .blog-book-feature p.book-open-cta {
+    color: #f5efe3 !important;
+}
+a.blog-book-feature:hover .book-open-cta {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0,0,0,0.22);
+    background: #2d2925;
+}
+
+/* The wandering dashed 'stamp' pseudo-element overlapped the GET ADVICE button — remove */
+.telegram-input-area::after { display: none !important; }
+
+/* ============ 1930s VINTAGE BAND TEXTURE ============ */
+/* Film-grain + natural vignette on the dark header/footer bands, so they read
+   as old projection paper rather than flat paint. Grain is a tiny inline SVG
+   (no extra request), sized and tiled; vignette sits above it. */
+.gallery-page-container header,
+.gallery-page-container footer {
+    background-image:
+        radial-gradient(ellipse at 50% 40%, rgba(255, 245, 220, 0.06) 0%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.35) 100%),
+        url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23g)' opacity='0.11'/%3E%3C/svg%3E");
+    background-size: 100% 100%, 140px 140px;
+    background-blend-mode: normal, multiply;
+}
+/* A faint gold pinstripe inside the top/bottom borders — title-card feel */
+.gallery-page-container header {
+    box-shadow: inset 0 4px 0 rgba(184, 134, 11, 0.22), inset 0 -4px 0 rgba(184, 134, 11, 0.22), 0 2px 5px rgba(0,0,0,0.2);
+}
+.gallery-page-container footer {
+    box-shadow: inset 0 4px 0 rgba(184, 134, 11, 0.22), 0 -2px 5px rgba(0,0,0,0.2);
+}
+
+/* ============ MOBILE RESPONSIVE FIXES ============ */
+@media (max-width: 560px) {
+    /* Header title must fit a 320-390px phone — no clipping, no icon overlap */
+    .gallery-page-container header h1 {
+        font-size: clamp(2.1rem, 10.5vw, 2.9rem) !important;
+        letter-spacing: 2px !important;
+        padding: 0 46px !important; /* clear the fixed search button */
+        box-sizing: border-box;
+        background-size: 100% 100%, 90px 90px;
+    }
+    .gallery-page-container header { padding: 18px 0 16px 0; }
+
+    /* Engraved plates: keep every rule inside the viewport */
+    pre.ascii-art.ascii-banner { font-size: 12.5px !important; letter-spacing: 0 !important; }
+    pre.ascii-art.ascii-card { font-size: 1.15rem !important; }
+
+    /* Book feature plate on its card: shave the mono size so lines never clip */
+    .blog-book-feature .blog-image-placeholder pre.ascii-art {
+        font-size: 0.82rem !important;
+        letter-spacing: 1px !important;
+    }
+
+    /* Content images: slightly tighter frame so they read full-width */
+    .gallery-page-container .page-content img.placeholder-image { width: 100% !important; }
+
+    /* Buttons inside telegram/goals input rows stack cleanly */
+    .telegram-input-area { flex-direction: column; align-items: stretch; }
+    #getAdviceBtn { width: 100%; }
+}
+
+/* Treasure chest prize: ASCII plate replaces the missing png (1930s style) */
+.treasure-chest-glow pre.ascii-art {
+    display: table;
+    margin: 0 auto 12px auto !important;
+    font-size: 0.95rem;
+    color: #5a4a6b;
+    text-align: left;
 }
